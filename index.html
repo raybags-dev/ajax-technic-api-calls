@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax</title>
+    <link rel="stylesheet" href="/public/styles.css" />
+    <script type="text/javascript" src="/public/index.js" defer></script>
+  </head>
+  <body>
+    <div id="data-container" class="main-wrapper">
+      <!-- post html placeholder-->
+      <div id="placeHolder-post" class="post" style="opacity: 1">
+        <p class="post_body">
+          This application uses AJAX technic to fetch data from the fake
+          data json. You can decide to check posts, or todo items or images.
+          Three different functional components have been created creating one post car form each object from the response.
+        </p>
+      </div>
+
+      <!-- todo html placeholder -->
+      <div id="placeHolder-task" class="task" style="opacity: 1">
+        <p class="task-user-id">123456</p>
+        <p class="task-id">1234789456</p>
+        <p class="task-title">this is task title</p>
+        <p class="task-completed">
+          This application uses AJAX technic to fetch data from the fake
+          data json. You can decide to check posts, or todo items or images.
+          Three different functional components have been created creating one post car form each object from the response.
+        </p>
+      </div>
+    </div>
+    <div class="button-wrapper">
+      <button id="getPosts" class="get-posts">Get Posts</button>
+      <button class="get-todos">Get Todos</button>
+      <button class="get-images">Get Images</button>
+    </div>
+    <div class="herder"><h1 class="content-main-heading">Your Data</h1></div>
+    <!-- jQuery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+  </body>
+</html>
