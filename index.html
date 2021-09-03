@@ -5,15 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajax</title>
+    <!-- slides adon css -->
+    <link rel="stylesheet" href="/public/js/slides_lib/css/slides.css" />
+    <!-- custom css -->
     <link rel="stylesheet" href="/public/styles.css" />
-    <script type="text/javascript" src="/public/index.js" defer></script>
   </head>
   <body>
     <!-- placeholder image -->
-    <div class="body_image_wrapper">
-      <img src="/public/img/me_.jpeg" style="width: 100px; height: 100px;" alt="img" />
+    <div id="slides" class="body_image_wrapper">
+      <img
+        src="/public/img/me_.jpeg"
+        style="width: 100px; height: 100px"
+        alt="img"
+      />
+      <img
+        src="/public/img/face-1-min.jpeg"
+        style="width: 100px; height: 100px"
+        alt="img"
+      />
+      <img
+        src="/public/img/face-2-min.jpeg"
+        style="width: 100px; height: 100px"
+        alt="img"
+      />
+      <img
+        src="/public/img/face-3-min.jpeg"
+        style="width: 100px; height: 100px"
+        alt="img"
+      />
+      <img
+        src="/public/img/face-4-min.jpeg"
+        style="width: 100px; height: 100px"
+        alt="img"
+      />
+      <img
+        src="/public/img/face-5-min.jpeg"
+        style="width: 100px; height: 100px"
+        alt="img"
+      />
+      <img
+        src="/public/img/face-6-min.jpeg"
+        style="width: 100px; height: 100px"
+        alt="img"
+      />
     </div>
     <div id="data-container" class="main-wrapper">
+      <!-- spinner -->
+      <div id="spinner" class="lds-dual-ring hide"></div>
       <!-- post html placeholder-->
       <div id="placeHolder-post" class="post" style="opacity: 1">
         <p class="post_body">
@@ -56,5 +94,12 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
       referrerpolicy="no-referrer"
     ></script>
+    <!-- slidejs  jqury extention adon-->
+    <script src="/public/js/slides_lib/js/jquery.slides.min.js"></script>
+    <!-- slidejs custom module -->
+    <script type="text/javascript" src="/public/js/slides.js"></script>
+
+    <!-- Custom JS -->
+    <script type="module" src="/public/js/index.js"></script>
   </body>
 </html>

@@ -105,7 +105,7 @@ body {
   .post,
   .task,
   .photo {
-    min-width: 350.43px !important;
+    flex: 1 1 100%;
   }
 }
 @media screen and (max-width: 998px) {
@@ -148,6 +148,16 @@ body {
 .photo::-webkit-scrollbar-thumb {
   background: rgb(73, 1, 1);
   border-radius: 0.5rem;
+}
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
@@ -268,18 +278,31 @@ body {
     transform: translateX(7%);
   }
 }
+
 .button-wrapper button {
   position: relative;
   width: 9em;
   height: 3em;
   border-radius: 5rem;
   background: hsl(0, 1%, 25%);
+  border-color: rgba(3, 162, 253, 0.8) transparent hsl(0, 100%, 50%, 0.1)
+    transparent;
   color: white;
   opacity: 0.7;
   text-transform: uppercase;
   margin-top: -1000%;
   -webkit-animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
   animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
+}
+@media screen and (max-width: 569px) {
+  .button-wrapper {
+    top: 1%;
+  }
+  .button-wrapper button {
+    border-radius: 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 0.7em;
+  }
 }
 .button-wrapper button:active {
   margin: unset;
@@ -288,10 +311,12 @@ body {
 }
 .button-wrapper button:hover {
   cursor: pointer;
-  background: hsl(0, 0%, 5%);
+  background: linear-gradient(45deg, rgb(0 0 0 / 0.5), rgb(0 0 0 / 0.5));
   transition: 0.3s;
   opacity: 1;
   color: red;
+  border-color: rgba(0, 142, 224, 0.1) transparent hsl(0, 100%, 50%, 0.5)
+    transparent;
 }
 
 .button-wrapper button::before {
@@ -327,11 +352,12 @@ body {
 .herder {
   position: absolute;
   color: rgb(255, 255, 255);
-  width: 100%;
+  min-width: 100%;
   max-height: 4em;
   top: 0;
   left: 0;
   right: 0;
+  bottom: 5%;
   background: rgb(0, 0, 0);
   display: flex;
   justify-content: center;
@@ -343,11 +369,15 @@ body {
 }
 
 .content-main-heading {
+  position: absolute;
   width: 100%;
   text-align: center;
   opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 1.5em;
-  letter-spacing: 2rem;
+  letter-spacing: 1.1rem;
   text-transform: uppercase;
   transition: var(--transition);
   -webkit-animation: slideInText 1 forwards ease-in 1.5s 1s;
@@ -372,29 +402,38 @@ body {
     top: unset;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 1%;
     transition: var(--transition);
     box-shadow: inset 0px 20px 20px -2px rgba(0, 10, 63, 0.63);
+  }
+}
+@media screen and (max-width: 371px) {
+  .content-main-heading {
+    font-size: 0.9em;
   }
 }
 /* place hoder image */
 .body_image_wrapper {
   position: absolute;
-  background: rgb(27, 27, 27, 0.5);
   width: 12em;
   height: 12em;
   bottom: 10%;
   left: 0;
-  border-radius: 50%;
+  border-radius: 0.5rem;
   z-index: 100;
-  -o-object-fit: cover;
-  object-fit: cover;
+  -o-object-fit: cover !important;
+  object-fit: cover !important;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5em;
   transition: var(--transition);
   opacity: 1;
+  isolation: isolate;
+  background: linear-gradient(
+    45deg,
+    hsl(0, 100%, 50%, 0.5),
+    hsl(240, 100%, 50%, 0.5)
+  );
 }
 @media screen and (max-width: 600px) {
   .body_image_wrapper {
@@ -404,44 +443,62 @@ body {
 }
 @media screen and (max-width: 400px) {
   .body_image_wrapper {
-    width: 6em;
-    height: 6em;
+    width: 5em;
+    height: 5em;
+    bottom: 0;
+    padding: auto;
+    border-radius: 0.1rem;
   }
 }
 
 .body_image_wrapper img {
-  position: relative;
-  border-radius: 50%;
-  width: 100% !important;
-  height: 100% !important;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-blend-mode: darken;
-  transition: var(--transition);
+  position: absolute;
+  border-radius: 0.5rem;
+  margin: auto !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  -o-object-fit: cover !important;
+  object-fit: cover !important;
 }
 .body_image_wrapper:hover {
   cursor: pointer;
-  padding: unset;
+  transform: scale(1.019);
   transition: var(--transition);
 }
-.body_image_wrapper::before {
-  content: "";
+/* ===========Spinner========== */
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
   position: absolute;
-  min-width: 100%;
-  height: 50%;
-  left: 0;
-  right: 0;
-  bottom: 30%;
-  transition: var(--transition);
-  background: rgba(48, 0, 0, 0.4);
-  transform: perspective(2rem) rotateY(50deg);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.body_image_wrapper:hover::before {
-  background: rgba(3, 9, 46, 0.8);
-  transition: var(--transition);
-  -webkit-filter: blur(10px);
-  filter: blur(10px);
-  transition: var(--transition);
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: rgba(73, 131, 255, 0.5) transparent rgba(255, 42, 42, 0.5)
+    transparent;
+  -webkit-animation: lds-dual-ring 1.2s linear infinite;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@-webkit-keyframes lds-dual-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes lds-dual-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hide {
+  display: none;
 }
