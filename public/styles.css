@@ -482,6 +482,13 @@ body {
   );
   z-index: 100;
 }
+@media screen and (max-width: 690px) {
+  .body_image_wrapper::before {
+    font-size: 1em;
+    text-align: bottom;
+    color: hsl(0, 45%, 98%, .5);
+  }
+}
 
 .body_image_wrapper:hover {
   cursor: pointer;
