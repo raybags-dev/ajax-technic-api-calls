@@ -164,6 +164,9 @@ body {
 .photo p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
+.post p::-moz-selection, .task p::-moz-selection, .photo p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
 .post p::selection,
 .task p::selection,
 .photo p::selection {
@@ -460,6 +463,26 @@ body {
   -o-object-fit: cover !important;
   object-fit: cover !important;
 }
+.body_image_wrapper::before {
+  content: "loading...";
+  position: absolute;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(141, 2, 2, 0.5)
+  );
+  z-index: 100;
+}
+
 .body_image_wrapper:hover {
   cursor: pointer;
   transform: scale(1.019);

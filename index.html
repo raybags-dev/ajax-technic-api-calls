@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="/public/js/slides_lib/css/slides.css" />
     <!-- custom css -->
     <link rel="stylesheet" href="/public/styles.css" />
+
+    <!-- AOS animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   </head>
   <body>
     <!-- placeholder image -->
@@ -53,22 +56,64 @@
       <!-- spinner -->
       <div id="spinner" class="lds-dual-ring hide"></div>
       <!-- post html placeholder-->
-      <div id="placeHolder-post" class="post" style="opacity: 1">
-        <p class="post_body" style="font-size: 1.2em; text-transform: uppercase; line-height: 1.8rem">
+      <div
+        id="placeHolder-post"
+        class="post"
+        style="opacity: 1"
+        data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="200"
+      >
+        <p
+          class="post_body"
+          style="
+            font-size: 1.2em;
+            text-transform: uppercase;
+            line-height: 1.8rem;
+          "
+        >
           This application uses AJAX technic to fetch data from jsonplaceholder
           API You can get POSTS here
         </p>
       </div>
       <!-- todo html placeholder -->
-      <div id="placeHolder-task" class="task" style="opacity: 1">
-        <p class="task-completed" style="font-size: 1.2em; text-transform: uppercase; line-height: 1.8rem">
+      <div
+        id="placeHolder-task"
+        class="task"
+        style="opacity: 1"
+        data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="300"
+      >
+        <p
+          class="task-completed"
+          style="
+            font-size: 1.2em;
+            text-transform: uppercase;
+            line-height: 1.8rem;
+          "
+        >
           This application uses AJAX technic to fetch data from jsonplaceholder
           API You can get your TASKS here
         </p>
       </div>
       <!-- photo html placeholder -->
-      <div id="placeHolder-photo" class="photo" style="opacity: 1">
-        <p class="album-id" style="font-size: 1.2em; text-transform: uppercase; line-height: 1.8rem">
+      <div
+        id="placeHolder-photo"
+        class="photo"
+        style="opacity: 1"
+        data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="400"
+      >
+        <p
+          class="album-id"
+          style="
+            font-size: 1.2em;
+            text-transform: uppercase;
+            line-height: 1.8rem;
+          "
+        >
           This application uses AJAX technic to fetch data from jsonplaceholder
           API You can get your PHOTOS here
         </p>
@@ -77,7 +122,7 @@
     <div class="button-wrapper">
       <button id="getPosts" class="get-posts">Get Posts</button>
       <button class="get-todos">Get Todos</button>
-      <button class="get-images">Get Images</button>
+      <button class="get-images">Get Users</button>
     </div>
     <div class="herder"><h1 class="content-main-heading">Your Data</h1></div>
     <!-- jQuery -->
@@ -89,8 +134,11 @@
     <script src="/public/js/slides_lib/js/jquery.slides.min.js"></script>
     <!-- slidejs custom module -->
     <script type="text/javascript" src="/public/js/slides.js"></script>
-
+<!-- AOS animation -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <!-- Custom JS -->
     <script type="module" src="/public/js/index.js"></script>
+    
+    
   </body>
 </html>
