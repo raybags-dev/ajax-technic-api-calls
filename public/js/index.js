@@ -23,7 +23,6 @@ $(document).ready(function () {
         "data-aos": "fade-in",
         "data-aos-easing": "ease",
       });
-      console.log(this)
   };
 
   //===========CREATE A SINGLE POST HTML BOILERPLATE HANDLER==============//
