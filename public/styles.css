@@ -123,7 +123,9 @@ body {
 .post,
 .task,
 .photo,
-.quote {
+.quote,
+.movie {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -142,10 +144,12 @@ body {
   transition: var(--transition);
   box-shadow: inset 1px -1px 6px 5px rgba(0, 0, 0, 0.53);
 }
+
 .post:hover,
 .task:hover,
 .photo:hover,
-.quote:hover {
+.quote:hover,
+.movie:hover {
   cursor: pointer;
   background: rgba(59, 1, 1, 0.5);
 }
@@ -159,7 +163,8 @@ body {
   .post,
   .task,
   .photo,
-  .quote {
+  .quote,
+  .movie {
     flex: 1 1 100%;
   }
 }
@@ -173,7 +178,8 @@ body {
   .post,
   .task,
   .photo,
-  .quote {
+  .quote,
+  .movie {
     min-width: 47%;
     margin-bottom: 0.8rem;
   }
@@ -182,7 +188,8 @@ body {
   .post,
   .task,
   .photo,
-  .quote {
+  .quote,
+  .movie {
     min-width: 97%;
   }
   .placeholder-container p {
@@ -217,49 +224,63 @@ body {
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
-.photo p::-moz-selection {
+.photo p::-moz-selection,
+.movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
 .photo p::-moz-selection,
-.quote p::-moz-selection {
+.quote p::-moz-selection,
+.movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
 .photo p::-moz-selection,
-.quote p::-moz-selection {
+.quote p::-moz-selection,
+.movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
 .photo p::-moz-selection,
-.quote p::-moz-selection {
+.quote p::-moz-selection,
+.movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
 .photo p::-moz-selection,
-.quote p::-moz-selection {
+.movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
 .photo p::-moz-selection,
-.quote p::-moz-selection {
+.quote p::-moz-selection,
+.movie p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection,
+.movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p::selection,
 .task p::selection,
 .photo p::selection,
-.quote p::selection {
+.quote p::selection,
+.movie p::selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p,
 .task p,
 .photo p,
-.quote p {
+.quote p,
+.movie p {
   position: relative;
   padding: 0.1rem 0.3rem;
   text-transform: capitalize;
@@ -334,6 +355,106 @@ body {
   width: 20px;
   height: 20px;
   text-align: center;
+}
+/* movie styles */
+.movie {
+  overflow: hidden;
+  position: relative;
+  box-shadow: 1px 1px 40px 10px rgb(0, 0, 0, 0.5);
+}
+.movie::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9));
+}
+.movie .movie-poster {
+  position: absolute;
+  -o-object-fit: cover;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transition: var(--transition);
+  opacity: 0.6;
+}
+.movie > * {
+  overflow: auto;
+}
+.movie p::-webkit-scrollbar {
+  background: rgb(0, 0, 0);
+  width: 3px;
+  box-shadow: inset 0px 0px 10px 0px rgba(56, 13, 13, 0.5);
+}
+
+.movie p::-webkit-scrollbar-button {
+  background: #000000;
+  width: 2px;
+}
+.movie p::-webkit-scrollbar-thumb {
+  background: rgb(73, 1, 1);
+  border-radius: 0.5rem;
+}
+.movie p:nth-child(1) {
+  padding-top: 1rem;
+  color: rgb(240, 234, 234);
+  text-shadow: 0px 0px 8px rgb(0, 0, 0);
+  display: flex;
+  margin-top: -1rem;
+  font-family: var(--main-font-family);
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: 700;
+  width: 100%;
+  padding: 1rem;
+}
+.movie p:nth-child(3) {
+  background: linear-gradient(45deg, rgba(3, 34, 75, 0.5), rgb(0, 0, 0, 0.5));
+  border-radius: 0.4rem;
+  width: 50%;
+  height: 15%;
+  transition: var(--transition);
+  overflow: hidden;
+}
+.movie:hover p:nth-child(3) {
+  height: 100%;
+  overflow: auto;
+}
+.movie .movie-vote {
+  position: absolute;
+  right: 1%;
+  top: 2%;
+  width: 40px;
+  height: auto;
+  border-radius: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+.movie .movie-release {
+  position: absolute;
+  right: 1%;
+  top: 30%;
+}
+
+.primary {
+  background: rgb(1, 121, 1, 0.5);
+  color: rgb(255, 255, 255);
+}
+.danger {
+  background: rgba(138, 21, 1, 0.5);
+  color: white;
+}
+.average {
+  background: rgb(2, 71, 175, 0.5);
+  color: white;
 }
 
 @media screen and (max-width: 529px) {

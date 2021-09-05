@@ -7,15 +7,27 @@ const getPosts = document.querySelector(".get-posts");
 const getTodos = document.querySelector(".get-todos");
 const getUsers = document.querySelector(".get-images");
 const getQuotes = document.querySelector(".get-quotes");
+const getMovies = document.querySelector(".get-movies");
 
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
-// tasks
+// tasks link
 const todoLink = "https://jsonplaceholder.typicode.com/todos";
-// users
+// users link
 const usersLink = "https://jsonplaceholder.typicode.com/users";
-// quotes
+// quotes link
 const quotesLink = "https://type.fit/api/quotes";
+
+// movies link
+const moviewLink = `https://api.themoviedb.org/3/discover/movie?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&language=en-US&sort_by=popularity.desc&include_adult=false&page=1`;
+const moviewLink_2 = `https://api.themoviedb.org/3/discover/movie?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&language=en-US&sort_by=popularity.desc&include_adult=false&page=2`;
+
+const img_300 = "https://image.tmdb.org/t/p/w300";
+const img_500 = "https://image.tmdb.org/t/p/w500";
+
+// no poster available
+const noPosterAvailable =
+  "https://www.movienewz.com/img/films/poster-holder.jpg";
 
 $(document).ready(function () {
   aos_animation_handler();
@@ -34,6 +46,49 @@ $(document).ready(function () {
   $(".BTN").each((ind, ele) => {
     $(ele).on("click", displayArrowDirection);
   });
+  //===========CREATE MOVIE ITEM HTML BOILERPLATE HANDLER==============//
+  const createMovieItem = function (
+    movie_Title,
+    movie_Poster,
+    movie_Overview,
+    movie_Release_date,
+    movie_Vote_average
+  ) {
+    const singleMovieDiv = $("<div></div>")
+        .attr({ class: "movie" })
+        .animate({ opacity: 1 }),
+      para_m_title = $("<p></p>")
+        .attr("class", "movie-title")
+        .text(movie_Title),
+      post_img = $("<img />").attr({
+        class: "movie-poster",
+        src: `${movie_Poster}`,
+        alt: "poster",
+      }),
+      para_m_overview = $("<p></p>")
+        .attr("class", "movie-overview")
+        .text(`Details: ` + movie_Overview),
+      para_m_release = $("<p></p>")
+        .attr("class", "movie-release")
+        .text(`Reased: ` + movie_Release_date),
+      para_m_vote = $("<p></p>")
+        .attr("class", "movie-vote")
+        .text(movie_Vote_average);
+
+    $(singleMovieDiv).append(
+      para_m_title,
+      post_img,
+      para_m_overview,
+      para_m_release,
+      para_m_vote
+    );
+    $("#data-container").append($(singleMovieDiv));
+    return movie_Vote_average <= 4.5
+      ? $(".movie-vote").addClass("danger")
+      : movie_Vote_average <= 7.5
+      ? $(".movie-vote").addClass("average")
+      : $(".movie-vote").addClass("primary");
+  };
 
   //===========CREATE A QUOTE HTML BOILERPLATE HANDLER==============//
   const CreateQuote = function (author, text) {
@@ -174,6 +229,8 @@ $(document).ready(function () {
     $(".post").remove();
     // remove quote data from the dom
     $(".quote").remove();
+    // remove users data from dom
+    $(".movie").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -231,6 +288,8 @@ $(document).ready(function () {
     $(".user").remove();
     // remove quote data from the dom
     $(".quote").remove();
+    // remove users data from dom
+    $(".movie").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -278,6 +337,8 @@ $(document).ready(function () {
     $(".user").remove();
     // remove quote data from the dom
     $(".quote").remove();
+    // remove users data from dom
+    $(".movie").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -321,6 +382,8 @@ $(document).ready(function () {
     $(".photo").remove();
     // remove users data from dom
     $(".task").remove();
+    // remove users data from dom
+    $(".movie").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -356,8 +419,80 @@ $(document).ready(function () {
     return;
   };
 
+  // ==========================Quotes=====================
+  //============ AJAX CALL FOR QUOTES HANDLER
+  const loadMoviesDemoData = function (resourceLink) {
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
+    // remove post data from the dom
+    $(".post").remove();
+    // remove user data from the dom
+    $(".photo").remove();
+    // remove users data from dom
+    $(".task").remove();
+    // remove users data from dom
+    $(".quote").remove();
+
+    // apply loading effetc class
+    $("#data-container").addClass("loadingAnimation");
+    // add spinner
+    $("#spinner").removeClass("hide");
+
+    xhttp.onreadystatechange = function () {
+      // Hide heading text
+      $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
+      if (this.readyState === 4 && this.status === 200) {
+        // remove spinner
+        $("#spinner").addClass("hide");
+        // remove loading effetc class
+        $("#data-container").removeClass("loadingAnimation");
+        const data = this.responseText;
+        const response = JSON.parse(data);
+        const movieArray = response.results;
+
+        // Movies data distructuring
+        movieArray.forEach((obj) => {
+          const {
+            backdrop_path,
+            original_title,
+            overview,
+            poster_path,
+            release_date,
+            title,
+            vote_average,
+          } = obj;
+          const movieBackdrop = `${img_300}/${
+            poster_path || noPosterAvailable
+          }`;
+          const moviePoster = `${img_500}/${
+            backdrop_path || noPosterAvailable
+          }`;
+
+          // create movie and map data to element
+          createMovieItem(
+            title,
+            moviePoster,
+            overview,
+            release_date,
+            vote_average
+          );
+        });
+
+        // change heading text
+        $(".content-main-heading")
+          .text("Trending movies")
+          .css({ transform: "translate(-50%, -50%)" });
+      }
+    };
+    xhttp.open("GET", resourceLink, true);
+
+    xhttp.send();
+    return;
+  };
+
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
   getQuotes.addEventListener("click", () => loadQuotesDemoData(quotesLink));
+  getMovies.addEventListener("click", () => loadMoviesDemoData(moviewLink));
 });
