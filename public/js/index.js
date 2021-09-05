@@ -48,7 +48,7 @@ $(document).ready(function () {
         .text(`Quote: ` + text);
 
     $(singleQuoteDiv).append(para_author, para_text);
-    $("#data-container").append($(singleQuoteDiv).addClass("container-dynamic-BG"));
+    $("#data-container").append($(singleQuoteDiv));
   };
   // =============Quotes end================
 

@@ -244,6 +244,12 @@ body {
 .quote p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
 .post p::selection,
 .task p::selection,
 .photo p::selection,
@@ -519,7 +525,14 @@ body {
     hsl(0, 100%, 50%, 0.5),
     hsl(240, 100%, 50%, 0.5)
   );
+  -webkit-animation: reveelImageBox 1 forwards linear 1s 3s;
   animation: reveelImageBox 1 forwards linear 1s 3s;
+}
+
+@-webkit-keyframes reveelImageBox {
+  to {
+    bottom: 10%;
+  }
 }
 
 @keyframes reveelImageBox {
@@ -647,14 +660,23 @@ body {
 }
 
 .direction-arrow-container .fas:nth-child(1) {
+  -webkit-animation: show_direction infinite forwards linear 1s 3s;
   animation: show_direction infinite forwards linear 1s 3s;
   transition: var(--transition);
   opacity: 0;
 }
 .direction-arrow-container .fas:nth-child(2) {
+  -webkit-animation: show_direction infinite forwards linear 1s 3s;
   animation: show_direction infinite forwards linear 1s 3s;
   transition: var(--transition);
   opacity: 0;
+}
+
+@-webkit-keyframes show_direction {
+  to {
+    transform: translateY(300%);
+    opacity: 1;
+  }
 }
 
 @keyframes show_direction {
