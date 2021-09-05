@@ -210,7 +210,7 @@ $(document).ready(function () {
         });
         // change heading text
         $(".content-main-heading")
-          .text("your photos")
+          .text("all users")
           .css({ transform: "translate(-50%, -50%)" });
       }
     };
@@ -257,7 +257,7 @@ $(document).ready(function () {
         });
         // change heading text
         $(".content-main-heading")
-          .text("your posts")
+          .text("all posts")
           .css({ transform: "translate(-50%, -50%)" });
       }
     };
@@ -302,7 +302,7 @@ $(document).ready(function () {
         });
         // change heading text
         $(".content-main-heading")
-          .text("your tasks")
+          .text("All tasks")
           .css({ transform: "translate(-50%, -50%)" });
       }
     };
@@ -347,7 +347,7 @@ $(document).ready(function () {
 
         // change heading text
         $(".content-main-heading")
-          .text("your quotes")
+          .text("All quotes")
           .css({ transform: "translate(-50%, -50%)" });
       }
     };
