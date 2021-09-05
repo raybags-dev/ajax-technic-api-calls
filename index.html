@@ -4,16 +4,27 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ajax</title>
+    <title>Fetch data with Ajax technic</title>
+
     <!-- slides adon css -->
     <link rel="stylesheet" href="/public/js/slides_lib/css/slides.css" />
     <!-- custom css -->
     <link rel="stylesheet" href="/public/styles.css" />
-
     <!-- AOS animation -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
+    <div class="direction-arrow-container">
+      <i class="fas fa-angle-down"></i>
+      <i class="fas fa-angle-down"></i>
+    </div>
     <!-- placeholder image -->
     <div id="slides" class="body_image_wrapper">
       <img
@@ -54,74 +65,49 @@
     </div>
     <div id="data-container" class="main-wrapper">
       <!-- spinner -->
-      <div id="spinner" class="lds-dual-ring hide"></div>
+      <div id="spinner" class="lds-dual-ring"></div>
       <!-- post html placeholder-->
-      <div
-        id="placeHolder-post"
-        class="post"
-        style="opacity: 1"
-        data-aos="flip-left"
-        data-aos-duration="700"
-      >
-        <p
-          class="post_body"
-          style="
-            font-size: 1.2em;
-            text-transform: uppercase;
-            line-height: 1.8rem;
-          "
-        >
-          This application uses AJAX technic to fetch data from jsonplaceholder
-          API You can get POSTS here
+      <!--         This application uses AJAX technic to fetch data from jsonplaceholder
+          API You can get POSTS here -->
+      <div class="placeholder-container">
+        <p>This application uses AJAX technic to fetch data from:</p>
+
+        <ul class="list-container">
+          <li>
+            <a href="https://jsonplaceholder.typicode.com/" target="_blank"
+              >jsonplaceholder.typicode.com</a
+            >
+          </li>
+
+          <li>
+            <a
+              href="https://forum.freecodecamp.org/t/free-api-inspirational-quotes-json-with-code-examples/311373"
+              target="_blank"
+              >codecamp.org</a
+            >
+          </li>
+
+          <li><a href="https://swapi.dev" target="_blank">swapi.dev</a></li>
+        </ul>
+        <p>
+          You can fetch data from each api through an AJAX bound on respective
+          button on left screen.
         </p>
-      </div>
-      <!-- todo html placeholder -->
-      <div
-        id="placeHolder-task"
-        class="task"
-        style="opacity: 1"
-        data-aos="flip-left"
-        data-aos-duration="1000"
-      >
-        <p
-          class="task-completed"
-          style="
-            font-size: 1.2em;
-            text-transform: uppercase;
-            line-height: 1.8rem;
-          "
-        >
-          This application uses AJAX technic to fetch data from jsonplaceholder
-          API You can get your TASKS here
+        <p>
+          Data fetched include posts tasks/todos and users from from
+          jasonplaceholder API and Smarth quotes from Quotes free API
         </p>
-      </div>
-      <!-- photo html placeholder -->
-      <div
-        id="placeHolder-photo"
-        class="photo"
-        style="opacity: 1"
-        data-aos="flip-left"
-        data-aos-duration="1200"
-      >
-        <p
-          class="album-id"
-          style="
-            font-size: 1.2em;
-            text-transform: uppercase;
-            line-height: 1.8rem;
-          "
-        >
-          This application uses AJAX technic to fetch data from jsonplaceholder
-          API You can get your PHOTOS here
-        </p>
+        <p>API that has been used for movies is <q>the Movies API</q></p>
       </div>
     </div>
     <div class="button-wrapper">
-      <button id="getPosts" class="get-posts">Get Posts</button>
-      <button class="get-todos">Get Todos</button>
-      <button class="get-images">Get Users</button>
+      <button class="get-posts BTN">Posts</button>
+      <button class="get-todos BTN">Tasks</button>
+      <button class="get-images BTN">Users</button>
+      <button class="get-movies BTN">Movies</button>
+      <button class="get-quotes BTN">Quotes</button>
     </div>
-    <div class="herder"><h1 class="content-main-heading">Your Data</h1></div>
+    <div class="herder"><h1 class="content-main-heading">Fetch Data</h1></div>
     <!-- jQuery -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -131,11 +117,9 @@
     <script src="/public/js/slides_lib/js/jquery.slides.min.js"></script>
     <!-- slidejs custom module -->
     <script type="text/javascript" src="/public/js/slides.js"></script>
-<!-- AOS animation -->
+    <!-- AOS animation -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <!-- Custom JS -->
     <script type="module" src="/public/js/index.js"></script>
-    
-    
   </body>
 </html>

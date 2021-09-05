@@ -3,27 +3,54 @@
 import { aos_animation_handler } from "./aos_object.js";
 
 const xhttp = new XMLHttpRequest();
-const getPosts = document.getElementById("getPosts");
+const getPosts = document.querySelector(".get-posts");
 const getTodos = document.querySelector(".get-todos");
 const getUsers = document.querySelector(".get-images");
+const getQuotes = document.querySelector(".get-quotes");
 
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
+// tasks
 const todoLink = "https://jsonplaceholder.typicode.com/todos";
-// const photosLink = "https://jsonplaceholder.typicode.com/photos";
+// users
 const usersLink = "https://jsonplaceholder.typicode.com/users";
+// quotes
+const quotesLink = "https://type.fit/api/quotes";
 
 $(document).ready(function () {
   aos_animation_handler();
+  // Spinner
+  $("#spinner").addClass("hide");
 
-  const addAnimeEffectToEachItemAtInterval = function (index, item) {
-    $(this)
-      .delay(1000 * index)
-      .attr({
-        "data-aos": "fade-in",
-        "data-aos-easing": "ease",
-      });
+  // Handle arrow direction display handler
+  const displayArrowDirection = function () {
+    // elemnts to be hidden
+    const arrayOfElemnetsToBeHidden = [$(".direction-arrow-container")];
+    $(arrayOfElemnetsToBeHidden).each((index, element) => {
+      $(element).addClass("hide");
+    });
   };
+  // hide direction arrows on click of any button | engagement acquired
+  $(".BTN").each((ind, ele) => {
+    $(ele).on("click", displayArrowDirection);
+  });
+
+  //===========CREATE A QUOTE HTML BOILERPLATE HANDLER==============//
+  const CreateQuote = function (author, text) {
+    const singleQuoteDiv = $("<div></div>")
+        .attr({ class: "quote" })
+        .animate({ opacity: 1 }),
+      para_author = $("<p></p>")
+        .attr("class", "quote-author")
+        .text(`Author: ` + author),
+      para_text = $("<p></p>")
+        .attr("class", "quote-author")
+        .text(`Quote: ` + text);
+
+    $(singleQuoteDiv).append(para_author, para_text);
+    $("#data-container").append($(singleQuoteDiv).addClass("container-dynamic-BG"));
+  };
+  // =============Quotes end================
 
   //===========CREATE A SINGLE POST HTML BOILERPLATE HANDLER==============//
   const postItem = function (user_ud, post_id, post_title, body_content) {
@@ -138,16 +165,15 @@ $(document).ready(function () {
 
   // ============AJAX CALL FOR PHOTO HANDLER =================
   const loadUsersDemoData = function (resourceLink) {
-    //   remove placeholder photos
-    $("#placeHolder-photo").css({ display: "none" });
-    //   remove placeholder post
-    $("#placeHolder-post").css({ display: "none" });
-    //   remove placeholder task
-    $("#placeHolder-task").css({ display: "none" });
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
+
     // remove task data from the dom
     $(".task").remove();
     // remove post data from the dom
     $(".post").remove();
+    // remove quote data from the dom
+    $(".quote").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -181,8 +207,6 @@ $(document).ready(function () {
             catchPhrase,
             bs
           );
-          // Apply animation on condition
-          $(".photo").each(addAnimeEffectToEachItemAtInterval);
         });
         // change heading text
         $(".content-main-heading")
@@ -197,16 +221,16 @@ $(document).ready(function () {
 
   // ============AJAX CALL FOR POSTS HANDLER =================
   const loadPostsDemoData = function (resourceLink) {
-    //   remove placeholder photos
-    $("#placeHolder-photo").css({ display: "none" });
-    //   remove placeholder post
-    $("#placeHolder-post").css({ display: "none" });
-    //   remove placeholder task
-    $("#placeHolder-task").css({ display: "none" });
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
     // remove task data from the dom
     $(".task").remove();
     // remove post data from the dom
     $(".photo").remove();
+    // remove user data from the dom
+    $(".user").remove();
+    // remove quote data from the dom
+    $(".quote").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -230,8 +254,6 @@ $(document).ready(function () {
         response.forEach((obj) => {
           const { body, id, title, userId } = obj;
           postItem(userId, id, title, body);
-          // Apply animation on condition
-          $(".post").each(addAnimeEffectToEachItemAtInterval);
         });
         // change heading text
         $(".content-main-heading")
@@ -246,16 +268,16 @@ $(document).ready(function () {
 
   //============ AJAX CALL FOR TODOS HANDLER
   const loadTodosDemoData = function (resourceLink) {
-    //   remove placeholder photos
-    $("#placeHolder-photo").css({ display: "none" });
-    //   remove placeholder post
-    $("#placeHolder-post").css({ display: "none" });
-    //   remove placeholder task
-    $("#placeHolder-task").css({ display: "none" });
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
     // remove post data from the dom
     $(".post").remove();
     // remove post data from the dom
     $(".photo").remove();
+    // remove user data from the dom
+    $(".user").remove();
+    // remove quote data from the dom
+    $(".quote").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -277,8 +299,6 @@ $(document).ready(function () {
         response.forEach((obj) => {
           const { completed, id, title, userId } = obj;
           todoItem(completed, id, title, userId);
-          // Apply animation on condition
-          $(".task").each(addAnimeEffectToEachItemAtInterval);
         });
         // change heading text
         $(".content-main-heading")
@@ -290,8 +310,54 @@ $(document).ready(function () {
     xhttp.send();
     return;
   };
+  // ==========================Quotes=====================
+  //============ AJAX CALL FOR QUOTES HANDLER
+  const loadQuotesDemoData = function (resourceLink) {
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
+    // remove post data from the dom
+    $(".post").remove();
+    // remove user data from the dom
+    $(".photo").remove();
+    // remove users data from dom
+    $(".task").remove();
+
+    // apply loading effetc class
+    $("#data-container").addClass("loadingAnimation");
+    // add spinner
+    $("#spinner").removeClass("hide");
+
+    xhttp.onreadystatechange = function () {
+      // Hide heading text
+      $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
+      if (this.readyState === 4 && this.status === 200) {
+        // remove spinner
+        $("#spinner").addClass("hide");
+        // remove loading effetc class
+        $("#data-container").removeClass("loadingAnimation");
+        const data = this.responseText;
+        const response = JSON.parse(data);
+
+        // posts data distructure=ing
+        response.forEach((obj) => {
+          const { author, text } = obj;
+          // create elemnet and map data to element
+          CreateQuote(author, text);
+        });
+
+        // change heading text
+        $(".content-main-heading")
+          .text("your quotes")
+          .css({ transform: "translate(-50%, -50%)" });
+      }
+    };
+    xhttp.open("GET", resourceLink, true);
+    xhttp.send();
+    return;
+  };
 
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
+  getQuotes.addEventListener("click", () => loadQuotesDemoData(quotesLink));
 });

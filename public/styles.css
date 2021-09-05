@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap");
 *,
 *::before,
 *::after {
@@ -7,6 +8,7 @@
 }
 :root {
   --transition: all 0.5s linear;
+  --main-font-family: "Roboto", sans-serif;
 }
 body {
   background: #000000;
@@ -22,7 +24,11 @@ body {
   max-height: 90%;
   min-width: 70%;
   transform: translate(-50%, -50%);
-  background: hsla(240, 35%, 9%, 0.2);
+  background: linear-gradient(
+    180deg,
+    hsla(240, 91%, 30%, 0.5),
+    hsla(0, 96%, 35%, 0.5)
+  );
   border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
@@ -69,9 +75,61 @@ body {
   background: rgb(65, 64, 64);
   border-radius: 0.5rem;
 }
+.placeholder-container {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 1rem;
+  overflow: hidden;
+  border-radius: 0.7rem;
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 496px) {
+  .placeholder-container {
+    width: 100%;
+  }
+}
+.placeholder-container p {
+  color: hsl(0, 0%, 100%, 0.7);
+  font-family: var(--main-font-family);
+  font-size: 1.5em;
+  width: 100%;
+  padding: 0.5rem;
+}
+.list-container p::first-letter {
+  color: rgb(122, 143, 122) !important;
+}
+.list-container {
+  margin: 0 auto;
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.list-container li a {
+  text-decoration: none;
+  font-size: 1.5em;
+  color: white;
+  opacity: 0.8;
+}
+
+.list-container li:hover a {
+  color: rgb(255, 255, 255, 0.5);
+  flex-wrap: wrap;
+}
+
 .post,
 .task,
-.photo {
+.photo,
+.quote {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -92,19 +150,22 @@ body {
 }
 .post:hover,
 .task:hover,
-.photo:hover {
+.photo:hover,
+.quote:hover {
   cursor: pointer;
   background: rgba(59, 1, 1, 0.5);
 }
 .post:active,
 .task:active,
-.photo:active {
+.photo:active,
+.quote:active {
   border: 2px solid rgba(48, 1, 1, 0.5);
 }
 @media screen and (min-width: 1231px) {
   .post,
   .task,
-  .photo {
+  .photo,
+  .quote {
     flex: 1 1 100%;
   }
 }
@@ -117,7 +178,8 @@ body {
   }
   .post,
   .task,
-  .photo {
+  .photo,
+  .quote {
     min-width: 47%;
     margin-bottom: 0.8rem;
   }
@@ -125,27 +187,37 @@ body {
 @media screen and (max-width: 695px) {
   .post,
   .task,
-  .photo {
+  .photo,
+  .quote {
     min-width: 97%;
+  }
+  .placeholder-container p {
+    color: hsl(0, 0%, 100%, 0.7);
+    font-family: var(--main-font-family);
+    font-size: 1.5em;
+    line-height: 1.8em;
   }
 }
 
 .post::-webkit-scrollbar,
 .task::-webkit-scrollbar,
-.photo::-webkit-scrollbar {
+.photo::-webkit-scrollbar,
+.quote::-webkit-scrollbar {
   background: rgb(0, 0, 0);
   width: 3px;
   box-shadow: inset 0px 0px 10px 0px rgba(56, 13, 13, 0.5);
 }
 .post::-webkit-scrollbar-button,
 .task::-webkit-scrollbar-button,
-.photo::-webkit-scrollbar-button {
+.photo::-webkit-scrollbar-button,
+.quote::-webkit-scrollbar-button {
   background: #000000;
   width: 2px;
 }
 .post::-webkit-scrollbar-thumb,
 .task::-webkit-scrollbar-thumb,
-.photo::-webkit-scrollbar-thumb {
+.photo::-webkit-scrollbar-thumb,
+.quote::-webkit-scrollbar-thumb {
   background: rgb(73, 1, 1);
   border-radius: 0.5rem;
 }
@@ -156,25 +228,32 @@ body {
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
-.photo p::-moz-selection {
+.photo p::-moz-selection,
+.quote p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p::-moz-selection,
 .task p::-moz-selection,
-.photo p::-moz-selection {
+.photo p::-moz-selection,
+.quote p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
-.post p::-moz-selection, .task p::-moz-selection, .photo p::-moz-selection {
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p::selection,
 .task p::selection,
-.photo p::selection {
+.photo p::selection,
+.quote p::selection {
   background: rgba(23, 59, 34, 0.5);
 }
 .post p,
 .task p,
-.photo p {
+.photo p,
+.quote p {
   position: relative;
   padding: 0.1rem 0.3rem;
   text-transform: capitalize;
@@ -184,7 +263,9 @@ body {
 }
 .post .user-id::before,
 .task .task-user-id::before,
-.photo .album-id::before {
+.photo .album-id::before,
+.quote .album-id::before,
+.quote .quote-author::before {
   content: "☆";
   position: absolute;
   left: -6%;
@@ -200,7 +281,8 @@ body {
 }
 .post .item-id::before,
 .task .task-id::before,
-.photo .photo-id::before {
+.photo .photo-id::before,
+.quote .photo-id::before {
   content: "☆";
   position: absolute;
   left: -6%;
@@ -420,8 +502,8 @@ body {
   position: absolute;
   width: 12em;
   height: 12em;
-  bottom: 10%;
-  left: 0;
+  bottom: -50%;
+  left: 0%;
   border-radius: 0.5rem;
   z-index: 100;
   -o-object-fit: cover !important;
@@ -437,7 +519,15 @@ body {
     hsl(0, 100%, 50%, 0.5),
     hsl(240, 100%, 50%, 0.5)
   );
+  animation: reveelImageBox 1 forwards linear 1s 3s;
 }
+
+@keyframes reveelImageBox {
+  to {
+    bottom: 10%;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .body_image_wrapper {
     width: 8em;
@@ -486,7 +576,7 @@ body {
   .body_image_wrapper::before {
     font-size: 1em;
     text-align: bottom;
-    color: hsl(0, 45%, 98%, .5);
+    color: hsl(0, 45%, 98%, 0.5);
   }
 }
 
@@ -530,5 +620,51 @@ body {
 }
 
 .hide {
-  display: none;
+  display: none !important;
+  visibility: none !important;
+}
+
+/* arrow direction */
+.direction-arrow-container {
+  position: absolute;
+  width: 10%;
+  height: 6%;
+  top: 0%;
+  left: 4%;
+  color: white;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+}
+
+.direction-arrow-container > * {
+  font-size: 1.3em;
+  color: hsl(0, 100%, 50%, 0.7);
+  transition: var(--transition);
+}
+
+.direction-arrow-container .fas:nth-child(1) {
+  animation: show_direction infinite forwards linear 1s 3s;
+  transition: var(--transition);
+  opacity: 0;
+}
+.direction-arrow-container .fas:nth-child(2) {
+  animation: show_direction infinite forwards linear 1s 3s;
+  transition: var(--transition);
+  opacity: 0;
+}
+
+@keyframes show_direction {
+  to {
+    transform: translateY(300%);
+    opacity: 1;
+  }
+}
+@media screen and (max-width: 996px) {
+  .direction-arrow-container {
+    display: none;
+  }
 }
