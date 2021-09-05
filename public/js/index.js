@@ -20,7 +20,6 @@ const quotesLink = "https://type.fit/api/quotes";
 
 // movies link
 const moviewLink = `https://api.themoviedb.org/3/discover/movie?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&language=en-US&sort_by=popularity.desc&include_adult=false&page=1`;
-const moviewLink_2 = `https://api.themoviedb.org/3/discover/movie?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&language=en-US&sort_by=popularity.desc&include_adult=false&page=2`;
 
 const img_300 = "https://image.tmdb.org/t/p/w300";
 const img_500 = "https://image.tmdb.org/t/p/w500";
