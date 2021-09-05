@@ -510,7 +510,7 @@ body {
   height: 12em;
   bottom: -50%;
   left: 0%;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem !important;
   z-index: 100;
   -o-object-fit: cover !important;
   object-fit: cover !important;
@@ -567,22 +567,39 @@ body {
   object-fit: cover !important;
 }
 .body_image_wrapper::before {
-  content: "loading...";
+  content: "";
   position: absolute;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5em;
+  filter: grayscale(100%);
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(141, 2, 2, 0.5)
+    190deg,
+    rgba(158, 156, 156, 0.1) 0%,
+    rgba(0, 0, 0, 0.2)
   );
+  z-index: 100;
+}
+
+.body_image_wrapper::after {
+  content: "love traveling";
+  position: absolute;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  opacity: 0.7;
+  font-size: 1.2em;
+  font-weight: 700;
+  font-style: italic;
+  top: 85%;
+  left: 0;
+  right: 0;
   z-index: 100;
 }
 @media screen and (max-width: 690px) {
@@ -590,6 +607,9 @@ body {
     font-size: 1em;
     text-align: bottom;
     color: hsl(0, 45%, 98%, 0.5);
+  }
+  .body_image_wrapper::after {
+    font-size: 1em;
   }
 }
 
