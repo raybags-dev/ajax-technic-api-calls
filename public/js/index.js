@@ -54,9 +54,11 @@ $(document).ready(function () {
       }),
       btn_1 = $("<a></a>").attr({ href: "/", class: "btn_1, link" }).text("2"),
       btn_2 = $("<a></a>").attr({ href: "/", class: "btn_2, link" }).text("3"),
-      btn_3 = $("<a></a>").attr({ href: "/", class: "btn_3, link" }).text("4");
+      btn_3 = $("<a></a>").attr({ href: "/", class: "btn_3, link" }).text("4"),
+      btn_4 = $("<a></a>").attr({ href: "/", class: "btn_4, link" }).text("5");
+
     // append button container
-    $(fetch_more_m_btn_container).append(btn_1, btn_2, btn_3);
+    $(fetch_more_m_btn_container).append(btn_1, btn_2, btn_3, btn_4);
     $("#data-container").after(fetch_more_m_btn_container);
 
     $(".more_movies_btn a").each(async (ind, movielink) => {
@@ -75,6 +77,7 @@ $(document).ready(function () {
 
           xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
+              $(".movie").remove();
               // remove spinner
               $("#spinner").addClass("hide");
               // remove loading effetc class
@@ -162,11 +165,13 @@ $(document).ready(function () {
       para_m_vote
     );
     $("#data-container").append($(singleMovieDiv));
-    return movie_Vote_average <= 4.5
+    return movie_Vote_average <= 5.5
       ? $(".movie-vote").addClass("danger")
-      : movie_Vote_average <= 7.5
+      : movie_Vote_average <= 7.0
       ? $(".movie-vote").addClass("average")
-      : $(".movie-vote").addClass("primary");
+      : movie_Vote_average <= 10.0
+      ? $(".movie-vote").addClass("primary")
+      : $(".movie-vote").addClass("no-rating");
   };
 
   //===========CREATE A QUOTE HTML BOILERPLATE HANDLER==============//
@@ -519,6 +524,7 @@ $(document).ready(function () {
     $(".task").remove();
     // remove users data from dom
     $(".quote").remove();
+    $(".movie").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");

@@ -383,8 +383,8 @@ body {
   right: 0;
   bottom: 0;
   height: 40%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9));
 }
+
 .movie .movie-poster {
   position: absolute;
   -o-object-fit: cover;
@@ -444,11 +444,11 @@ body {
   overflow: auto;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background: linear-gradient(45deg, rgba(3, 34, 75, 0.5), rgb(0, 0, 0, 0.5));
+  background: linear-gradient(45deg, rgba(3, 34, 75, 0.6), rgb(0, 0, 0, 0.6));
 }
 .movie .movie-vote {
   position: absolute;
-  right: -40%;
+  right: 1%;
   top: 2%;
   width: 40px;
   height: auto;
@@ -460,34 +460,33 @@ body {
   font-size: 1.2em;
   transition: var(--transition);
 }
-.movie:hover .movie-vote {
-  right: 1%;
-}
+
 .movie .movie-release {
   position: absolute;
   bottom: 0;
 }
 
 .primary {
-  background: rgb(1, 121, 1, 0.5);
+  background: rgb(1, 121, 1, 1);
   color: rgb(255, 255, 255);
 }
 .danger {
-  background: rgba(138, 21, 1, 0.5);
+  background: rgba(138, 21, 1, 1);
   color: white;
 }
 .average {
-  background: rgb(2, 71, 175, 0.5);
+  background: rgb(0, 49, 122);
+  color: white;
+}
+.no-rating{
+  background: rgb(71, 71, 71);
   color: white;
 }
 
+/* PAGINATION */
 .more_movies_btn {
   position: absolute;
-  width: -webkit-max-content;
-  width: -moz-max-content;
   width: max-content;
-  height: -webkit-max-content;
-  height: -moz-max-content;
   height: max-content;
   z-index: 100;
   padding: 0.2rem 1rem;
@@ -497,10 +496,12 @@ body {
   align-items: center;
   top: 91%;
   left: 50%;
+  overflow: hidden;
   transform: translate(-50%);
+  transition: var(--transition);
 }
 
-/* PAGINATION */
+
 .more_movies_btn a {
   text-decoration: none;
   padding: 0.2rem 0.4rem;
@@ -517,6 +518,7 @@ body {
   text-align: center;
   margin: auto 0.2rem;
 }
+
 .more_movies_btn a:hover {
   background: rgb(48, 47, 47, 1);
   color: red;
@@ -526,6 +528,14 @@ body {
   transition: unset;
   transform: scale(1.089);
   color: white;
+}
+.more_movies_btn a:not(.more_movies_btn a:first-child){
+  margin-top: -50%;
+  transition: var(--transition);
+}
+.more_movies_btn:hover a:not(.more_movies_btn a:first-child){
+  margin-top: 0%;
+  transition: var(--transition);
 }
 
 @media screen and (max-width: 989px) {
