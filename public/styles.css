@@ -277,6 +277,13 @@ body {
 .movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection,
+.movie p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
 .post p::selection,
 .task p::selection,
 .photo p::selection,
@@ -385,6 +392,18 @@ body {
   height: 40%;
 }
 
+.img_result {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain !important;
+  object-fit: contain !important;
+  background-position: center;
+}
 .movie .movie-poster {
   position: absolute;
   -o-object-fit: cover;
@@ -486,7 +505,11 @@ body {
 /* PAGINATION */
 .more_movies_btn {
   position: absolute;
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
   height: max-content;
   z-index: 100;
   padding: 0.2rem 1rem;
@@ -800,7 +823,7 @@ body {
 }
 
 .body_image_wrapper::after {
-  content: "love traveling";
+  content: "";
   position: absolute;
   text-align: center;
   display: flex;

@@ -33,6 +33,11 @@ $(document).ready(function () {
   aos_animation_handler();
   // Spinner
   $("#spinner").addClass("hide");
+  // ========Scroll Handler===========
+  const contentInnerScrollHandler = function () {
+    let target = $("body");
+    $("#data-container").animate({ scrollTop: $(target).offset().top });
+  };
 
   // Handle arrow direction display handler
   const displayArrowDirection = function () {
@@ -46,6 +51,16 @@ $(document).ready(function () {
   $(".BTN").each((ind, ele) => {
     $(ele).on("click", displayArrowDirection);
   });
+
+  // ======CREATE IMAGE ELEMNET FOR SLIDE CONTAINER slidesjs-control =====
+
+  const imageCreator = function (movie_results_image_link) {
+    const IMG = $("<img />").attr({
+      class: "img_result",
+      src: movie_results_image_link,
+    });
+    $(".slidesjs-control").prepend($(IMG));
+  };
 
   // PAGINATION BUTTONS HANDLER ================//
   const createButtons = function () {
@@ -62,9 +77,18 @@ $(document).ready(function () {
     $(fetch_more_m_btn_container).append(btn_1, btn_2, btn_3, btn_4);
     $("#data-container").after(fetch_more_m_btn_container);
 
+    // API call
     $(".more_movies_btn a").each(async (ind, movielink) => {
       $(movielink).on("click", function (e) {
         e.preventDefault();
+
+        // scroll handler
+        // Handle content container inner scroll
+        (function () {
+          let target = $("body");
+          $("#data-container").animate({ scrollTop: $(target).offset().top });
+        })();
+
         const moviewLink = `https://api.themoviedb.org/3/trending/all/day?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&page=${$(
           movielink
         ).text()}`;
@@ -79,6 +103,8 @@ $(document).ready(function () {
           xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
               $(".movie").remove();
+              // remove all movie posters from slider
+              $(".img_result").remove();
               // remove spinner
               $("#spinner").addClass("hide");
               // remove loading effetc class
@@ -91,7 +117,7 @@ $(document).ready(function () {
               movieArray.forEach((obj) => {
                 const {
                   backdrop_path,
-                  original_title,
+                  original_name,
                   overview,
                   poster_path,
                   release_date,
@@ -109,7 +135,7 @@ $(document).ready(function () {
                 // rating or no rating
                 const rating = `${vote_average || "--"}`;
                 // title or original title
-                const movie_title = `${title || original_title}`;
+                const movie_title = `${title || original_name}`;
                 // create movie and map data to element
                 createMovieItem(
                   movie_title,
@@ -118,6 +144,7 @@ $(document).ready(function () {
                   release_date,
                   rating
                 );
+                imageCreator(moviePoster);
               });
             }
           };
@@ -525,7 +552,10 @@ $(document).ready(function () {
     $(".task").remove();
     // remove users data from dom
     $(".quote").remove();
+    // remove all movie elements
     $(".movie").remove();
+    // remove all movie posters from slider
+    $(".img_result").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -550,7 +580,7 @@ $(document).ready(function () {
         movieArray.forEach((obj) => {
           const {
             backdrop_path,
-            original_title,
+            original_name,
             overview,
             poster_path,
             release_date,
@@ -572,7 +602,7 @@ $(document).ready(function () {
           // rating or no rating
           const rating = `${vote_average || "--"}`;
           // title or original title
-          const movie_title = `${title || original_title}`;
+          const movie_title = `${title || original_name}`;
           // create movie and map data to element
           createMovieItem(
             movie_title,
@@ -581,6 +611,7 @@ $(document).ready(function () {
             release_date,
             rating
           );
+          imageCreator(moviePoster);
         });
 
         // change heading text
