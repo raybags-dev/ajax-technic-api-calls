@@ -18,8 +18,9 @@ const usersLink = "https://jsonplaceholder.typicode.com/users";
 // quotes link
 const quotesLink = "https://type.fit/api/quotes";
 
-// movies link
+// movies link (Discover)
 const moviewLink = `https://api.themoviedb.org/3/discover/movie?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&language=en-US&sort_by=popularity.desc&include_adult=false&page=1`;
+const movieLink_trending = `https://api.themoviedb.org/3/trending/all/day?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&page=1`;
 
 const img_300 = "https://image.tmdb.org/t/p/w300";
 const img_500 = "https://image.tmdb.org/t/p/w500";
@@ -64,7 +65,7 @@ $(document).ready(function () {
     $(".more_movies_btn a").each(async (ind, movielink) => {
       $(movielink).on("click", function (e) {
         e.preventDefault();
-        const moviewLink = `https://api.themoviedb.org/3/discover/movie?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&language=en-US&sort_by=popularity.desc&include_adult=false&page=${$(
+        const moviewLink = `https://api.themoviedb.org/3/trending/all/day?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&page=${$(
           movielink
         ).text()}`;
 
@@ -598,5 +599,7 @@ $(document).ready(function () {
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
   getQuotes.addEventListener("click", () => loadQuotesDemoData(quotesLink));
-  getMovies.addEventListener("click", () => loadMoviesDemoData(moviewLink));
+  getMovies.addEventListener("click", () =>
+    loadMoviesDemoData(movieLink_trending)
+  );
 });

@@ -478,7 +478,7 @@ body {
   background: rgb(0, 49, 122);
   color: white;
 }
-.no-rating{
+.no-rating {
   background: rgb(71, 71, 71);
   color: white;
 }
@@ -500,7 +500,6 @@ body {
   transform: translate(-50%);
   transition: var(--transition);
 }
-
 
 .more_movies_btn a {
   text-decoration: none;
@@ -528,14 +527,6 @@ body {
   transition: unset;
   transform: scale(1.089);
   color: white;
-}
-.more_movies_btn a:not(.more_movies_btn a:first-child){
-  margin-top: -50%;
-  transition: var(--transition);
-}
-.more_movies_btn:hover a:not(.more_movies_btn a:first-child){
-  margin-top: 0%;
-  transition: var(--transition);
 }
 
 @media screen and (max-width: 989px) {
