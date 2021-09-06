@@ -45,6 +45,85 @@ $(document).ready(function () {
   $(".BTN").each((ind, ele) => {
     $(ele).on("click", displayArrowDirection);
   });
+
+  // PAGINATION BUTTONS HANDLER ================//
+  const createButtons = function () {
+    // fetch more movies button container
+    const fetch_more_m_btn_container = $("<div></div>").attr({
+        class: "more_movies_btn",
+      }),
+      btn_1 = $("<a></a>").attr({ href: "/", class: "btn_1, link" }).text("2"),
+      btn_2 = $("<a></a>").attr({ href: "/", class: "btn_2, link" }).text("3"),
+      btn_3 = $("<a></a>").attr({ href: "/", class: "btn_3, link" }).text("4");
+    // append button container
+    $(fetch_more_m_btn_container).append(btn_1, btn_2, btn_3);
+    $("#data-container").after(fetch_more_m_btn_container);
+
+    $(".more_movies_btn a").each(async (ind, movielink) => {
+      $(movielink).on("click", function (e) {
+        e.preventDefault();
+        const moviewLink = `https://api.themoviedb.org/3/discover/movie?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&language=en-US&sort_by=popularity.desc&include_adult=false&page=${$(
+          movielink
+        ).text()}`;
+
+        //============ AJAX CALL FOR MORE MOVIES HANDLER
+        (() => {
+          // apply loading effetc class
+          $("#data-container").addClass("loadingAnimation");
+          // add spinner
+          $("#spinner").removeClass("hide");
+
+          xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+              // remove spinner
+              $("#spinner").addClass("hide");
+              // remove loading effetc class
+              $("#data-container").removeClass("loadingAnimation");
+              const data = this.responseText;
+              const response = JSON.parse(data);
+              const movieArray = response.results;
+
+              // Movies data distructuring
+              movieArray.forEach((obj) => {
+                const {
+                  backdrop_path,
+                  original_title,
+                  overview,
+                  poster_path,
+                  release_date,
+                  title,
+                  vote_average,
+                } = obj;
+                // poster or no poster
+                const moviePoster = `${img_500}/${
+                  backdrop_path || noPosterAvailable
+                }`;
+                // overview or no overview
+                const overView = `${
+                  overview || "no movie description for this item"
+                }`;
+                // rating or no rating
+                const rating = `${vote_average || "--"}`;
+                // title or original title
+                const movie_title = `${title || original_title}`;
+                // create movie and map data to element
+                createMovieItem(
+                  movie_title,
+                  moviePoster,
+                  overView,
+                  release_date,
+                  rating
+                );
+              });
+            }
+          };
+          xhttp.open("GET", moviewLink, true);
+          xhttp.send();
+          return;
+        })();
+      });
+    });
+  };
   //===========CREATE MOVIE ITEM HTML BOILERPLATE HANDLER==============//
   const createMovieItem = function (
     movie_Title,
@@ -69,11 +148,12 @@ $(document).ready(function () {
         .text(`Details: ` + movie_Overview),
       para_m_release = $("<p></p>")
         .attr("class", "movie-release")
-        .text(`Reased: ` + movie_Release_date),
+        .text(movie_Release_date),
       para_m_vote = $("<p></p>")
         .attr("class", "movie-vote")
         .text(movie_Vote_average);
 
+    // append movie container
     $(singleMovieDiv).append(
       para_m_title,
       post_img,
@@ -230,6 +310,8 @@ $(document).ready(function () {
     $(".quote").remove();
     // remove users data from dom
     $(".movie").remove();
+    // remove more movie button container
+    $(".more_movies_btn").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -289,6 +371,8 @@ $(document).ready(function () {
     $(".quote").remove();
     // remove users data from dom
     $(".movie").remove();
+    // remove more movie button container
+    $(".more_movies_btn").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -338,6 +422,8 @@ $(document).ready(function () {
     $(".quote").remove();
     // remove users data from dom
     $(".movie").remove();
+    // remove more movie button container
+    $(".more_movies_btn").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -383,6 +469,8 @@ $(document).ready(function () {
     $(".task").remove();
     // remove users data from dom
     $(".movie").remove();
+    // remove more movie button container
+    $(".more_movies_btn").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -441,6 +529,8 @@ $(document).ready(function () {
       // Hide heading text
       $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
       if (this.readyState === 4 && this.status === 200) {
+        // create get more movies buttons
+        createButtons();
         // remove spinner
         $("#spinner").addClass("hide");
         // remove loading effetc class
@@ -460,20 +550,29 @@ $(document).ready(function () {
             title,
             vote_average,
           } = obj;
+          // movie backdrop
           const movieBackdrop = `${img_300}/${
             poster_path || noPosterAvailable
           }`;
+          // poster or no poster
           const moviePoster = `${img_500}/${
             backdrop_path || noPosterAvailable
           }`;
-
+          // overview or no overview
+          const overView = `${
+            overview || "no movie description for this item"
+          }`;
+          // rating or no rating
+          const rating = `${vote_average || "--"}`;
+          // title or original title
+          const movie_title = `${title || original_title}`;
           // create movie and map data to element
           createMovieItem(
-            title,
+            movie_title,
             moviePoster,
-            overview,
+            overView,
             release_date,
-            vote_average
+            rating
           );
         });
 
