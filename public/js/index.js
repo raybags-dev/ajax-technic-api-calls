@@ -1,6 +1,7 @@
 "use strict";
 // import aos animation
 import { aos_animation_handler } from "./aos_object.js";
+import { CreateBackdrop } from "../backdrop.js";
 
 const xhttp = new XMLHttpRequest();
 const getPosts = document.querySelector(".get-posts");
@@ -8,6 +9,9 @@ const getTodos = document.querySelector(".get-todos");
 const getUsers = document.querySelector(".get-images");
 const getQuotes = document.querySelector(".get-quotes");
 const getMovies = document.querySelector(".get-movies");
+
+// Initialize AOS animations
+aos_animation_handler();
 
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
@@ -30,15 +34,8 @@ const noPosterAvailable =
   "https://www.movienewz.com/img/films/poster-holder.jpg";
 
 $(document).ready(function () {
-  aos_animation_handler();
   // Spinner
   $("#spinner").addClass("hide");
-  // ========Scroll Handler===========
-  const contentInnerScrollHandler = function () {
-    let target = $("body");
-    $("#data-container").animate({ scrollTop: $(target).offset().top });
-  };
-
   // Handle arrow direction display handler
   const displayArrowDirection = function () {
     // elemnts to be hidden
@@ -146,6 +143,34 @@ $(document).ready(function () {
                 );
                 imageCreator(moviePoster);
               });
+              // Create Backdrop when movie is clicked handler
+              (function () {
+                $(".movie").each((index, movieItem) => {
+                  $(movieItem).on("click", (e) => {
+                    const bd_title = $(movieItem).children()[0].innerText;
+                    const bd_image_url = $(movieItem).children()[1].src;
+                    const bd_details = $(movieItem).children()[2].innerText;
+                    const bd_release_date =
+                      $(movieItem).children()[3].innerText;
+                    const bd_rating = $(movieItem).children()[4].innerText;
+
+                    CreateBackdrop(
+                      `${bd_image_url}`,
+                      bd_title,
+                      bd_release_date,
+                      bd_details,
+                      bd_rating
+                    );
+                    $(".close-backdrop-btn").on("click", () => {
+                      $(".backdrop-container")
+                        .slideUp()
+                        .delay(1000, function () {
+                          $(this).remove();
+                        });
+                    });
+                  });
+                });
+              })();
             }
           };
           xhttp.open("GET", moviewLink, true);
@@ -603,21 +628,50 @@ $(document).ready(function () {
           const rating = `${vote_average || "--"}`;
           // title or original title
           const movie_title = `${title || original_name}`;
+          // release date
+          const releaseDate = `${release_date || "unavailable"}`;
           // create movie and map data to element
           createMovieItem(
             movie_title,
             moviePoster,
             overView,
-            release_date,
+            releaseDate,
             rating
           );
           imageCreator(moviePoster);
         });
-
         // change heading text
         $(".content-main-heading")
           .text("Trending movies")
           .css({ transform: "translate(-50%, -50%)" });
+
+        // Create Backdrop when movie is clicked handler
+        (function () {
+          $(".movie").each((index, movieItem) => {
+            $(movieItem).on("click", (e) => {
+              const bd_title = $(movieItem).children()[0].innerText;
+              const bd_image_url = $(movieItem).children()[1].src;
+              const bd_details = $(movieItem).children()[2].innerText;
+              const bd_release_date = $(movieItem).children()[3].innerText;
+              const bd_rating = $(movieItem).children()[4].innerText;
+
+              CreateBackdrop(
+                `${bd_image_url}`,
+                bd_title,
+                bd_release_date,
+                bd_details,
+                bd_rating
+              );
+              $(".close-backdrop-btn").on("click", () => {
+                $(".backdrop-container")
+                  .fadeOut()
+                  .delay(1000, function () {
+                    $(this).remove();
+                  });
+              });
+            });
+          });
+        })();
       }
     };
     xhttp.open("GET", resourceLink, true);

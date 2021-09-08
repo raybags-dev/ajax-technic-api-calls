@@ -284,6 +284,13 @@ body {
 .movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection,
+.movie p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
 .post p::selection,
 .task p::selection,
 .photo p::selection,
@@ -420,17 +427,20 @@ body {
 .movie > * {
   overflow: auto;
 }
-.movie p::-webkit-scrollbar {
+.movie p::-webkit-scrollbar,
+.actors::-webkit-scrollbar {
   background: rgb(0, 0, 0);
   width: 3px;
   box-shadow: inset 0px 0px 10px 0px rgba(231, 229, 229, 0.5);
 }
 
-.movie p::-webkit-scrollbar-button {
+.movie p::-webkit-scrollbar-button,
+.actors::-webkit-scrollbar-button {
   background: #000000;
   width: 2px;
 }
-.movie p::-webkit-scrollbar-thumb {
+.movie p::-webkit-scrollbar-thumb,
+.actors::-webkit-scrollbar-thumb {
   background: rgb(73, 1, 1);
   border-radius: 0.5rem;
 }
@@ -952,5 +962,149 @@ body {
 @media screen and (max-width: 996px) {
   .direction-arrow-container {
     display: none;
+  }
+}
+
+/* ============BACKDROP */
+.backdrop-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 70%;
+  max-width: 70%;
+  height: 80%;
+  max-height: 80%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  display: flex;
+  z-index: 101 !important;
+  border-radius: unset;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0.7rem;
+  -webkit-backdrop-filter: blur(100px);
+  backdrop-filter: blur(100px);
+}
+
+.close-backdrop-btn {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  color: hsl(0, 0%, 100%, 0.6);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  isolation: isolate;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3em;
+  z-index: 2;
+  isolation: isolate;
+  background: linear-gradient(
+    180deg,
+    hsl(0, 96%, 32%, 0.2) -10%,
+    hsl(240, 100%, 50%, 0.5)
+  );
+}
+.close-backdrop-btn::before {
+  content: "x";
+  position: absolute;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 1.2em;
+}
+.close-backdrop-btn:hover {
+  color: hsl(0, 100%, 50%, 0.5);
+  cursor: pointer;
+  transition: 0.2s;
+  background: rgb(44, 44, 44, 0.4);
+  transition: 0.3s;
+}
+.close-backdrop-btn:active {
+  color: white;
+  cursor: pointer;
+}
+
+.img-text-wrapper {
+  background: rgb(0, 0, 0);
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+.img-text-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+.actors {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  min-width: 90%;
+  max-height: 35%;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.5rem;
+  overflow-y: auto;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    180deg,
+    rgba(204, 101, 101, 0.2),
+    hsl(240, 100%, 50%, 0.2)
+  );
+}
+.actors h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  padding: 1.5rem 1rem;
+}
+.actors p {
+  font-size: 1.3em;
+  color: rgba(252, 249, 249, 0.7);
+  padding: 0.7rem 1rem;
+}
+@media screen and (max-width: 490px) {
+  .actors p {
+    font-size: 1em;
+    padding: 0.1rem 1rem;
+  }
+  .actors h1 {
+    font-size: 1.1em;
+    padding: 1.5rem 1rem;
+    padding: 1rem 1rem;
+  }
+}
+@media screen and (max-width: 998px) {
+  .backdrop-container {
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 100;
+  }
+  .actors {
+    min-width: 100%;
   }
 }
