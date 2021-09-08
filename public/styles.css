@@ -1081,7 +1081,9 @@ body {
   text-transform: uppercase;
   font-size: 1.2em;
   padding: 1.5rem 1rem;
+  margin-top: 1.5rem;
 }
+
 .actors p {
   font-size: 1.3em;
   color: rgba(252, 249, 249, 0.7);
@@ -1096,6 +1098,12 @@ body {
     font-size: 1.1em;
     padding: 1.5rem 1rem;
     padding: 1rem 1rem;
+  }
+}
+@media screen and (max-width: 349px) {
+  .actors h1 {
+    font-size: 1em;
+    line-height: 1.5rem;
   }
 }
 @media screen and (max-width: 998px) {
