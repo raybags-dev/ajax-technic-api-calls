@@ -16,7 +16,7 @@ body {
   color: #ffffff;
   overflow: hidden;
 }
-p{
+p {
   text-shadow: var(--main-text-shadow);
 }
 
@@ -40,7 +40,7 @@ p{
   justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
-  overflow-y: scroll;
+  overflow-y: auto;
   transition: var(--transition);
 }
 @media screen and (max-width: 196px) {
@@ -121,7 +121,7 @@ p{
 }
 
 .list-container li:hover a {
-  color: rgb(255, 255, 255, 0.5);
+  color: rgba(230, 9, 9, 0.8);
   flex-wrap: wrap;
 }
 
@@ -469,14 +469,14 @@ p{
   width: 100%;
   height: 20%;
   padding-top: 0.5rem;
-  transition: .3s;
+  transition: 0.3s;
   overflow: hidden;
 }
 .movie:hover p:nth-child(3) {
   height: 70%;
   overflow: auto;
   transition: unset;
-  transition: .3s;
+  transition: 0.3s;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background: linear-gradient(45deg, rgba(3, 34, 75, 0.6), rgb(0, 0, 0, 0.6));
@@ -590,15 +590,31 @@ p{
 /* Buttons */
 .button-wrapper {
   position: absolute;
-  top: 7.5%;
-  left: 5%;
-  width: 8%;
+  top: 10.5%;
+  left: 2%;
+  width: 12%;
   height: 40%;
   display: flex;
   border-radius: 0.5rem;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
+  animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
+}
+.button-wrapper::-webkit-scrollbar {
+  background: rgb(37, 37, 37);
+  width: 5px;
+  box-shadow: inset 0px 0px 10px 0px rgba(56, 13, 13, 0.5);
+}
+.button-wrapper::-webkit-scrollbar-button {
+  background: #888787;
+}
+.button-wrapper::-webkit-scrollbar-thumb {
+  background: rgb(65, 64, 64);
+  border-radius: 0.5rem;
 }
 @media screen and (max-width: 998px) {
   .button-wrapper {
@@ -611,6 +627,16 @@ p{
     margin: 0.1rem 0.5rem;
     justify-content: center;
     transform: translateX(7%);
+  }
+  .button-wrapper {
+    padding: 1rem;
+    height: 6%;
+    width: 85%;
+  }
+  .button-wrapper button {
+    margin-left: 0.5rem;
+    margin-top: 0.2rem;
+    font-size: 0.7em;
   }
 }
 
@@ -625,9 +651,6 @@ p{
   color: white;
   opacity: 0.7;
   text-transform: uppercase;
-  margin-top: -1000%;
-  -webkit-animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
-  animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
 }
 @media screen and (max-width: 569px) {
   .button-wrapper {
@@ -675,15 +698,47 @@ p{
 
 @-webkit-keyframes buttonSlideIn {
   to {
-    margin-top: 0%;
+    opacity: 1;
   }
 }
 
 @keyframes buttonSlideIn {
   to {
-    margin-top: 0%;
+    opacity: 1;
   }
 }
+
+/* ================ hover dynamic button effect class================ */
+.BTN_hover_effect {
+  cursor: pointer !important;
+  background: linear-gradient(
+    45deg,
+    rgb(0 0 0 / 0.5),
+    rgb(0 0 0 / 0.5)
+  ) !important;
+  transition: 0.3s !important;
+  opacity: 1 !important;
+  color: red !important;
+  border-color: rgba(0, 142, 224, 0.1) transparent hsl(0, 100%, 50%, 0.5)
+    transparent !important;
+}
+
+.BTN_hover_effect::before {
+  content: "" !important;
+  position: absolute !important;
+  bottom: -60% !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 50% !important;
+  opacity: 1 !important;
+  -webkit-filter: blur(10px) !important;
+  filter: blur(10px) !important;
+  transition: var(--transition) !important;
+  transform: perspective(2rem) rotateX(70deg) !important;
+  background: rgba(112, 2, 2, 0.6) !important;
+}
+/* ================ hover dynamic button effect class================ */
+
 .herder {
   position: absolute;
   color: rgb(255, 255, 255);

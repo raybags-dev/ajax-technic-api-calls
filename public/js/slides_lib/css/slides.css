@@ -1,21 +1,6 @@
 
     #slides .slidesjs-navigation {
-      margin-top:5px;
-    }
-
-    a.slidesjs-next,
-    a.slidesjs-previous,
-    a.slidesjs-play,
-    a.slidesjs-stop {
-      background-image: url(../img/btns-next-prev.png);
-      background-repeat: no-repeat;
-      display:block;
-      width:12px;
-      height:18px;
-      overflow: hidden;
-      text-indent: -9999px;
-      float: left;
-      margin-right:5px;
+     display: none;
     }
 
     a.slidesjs-next {
@@ -54,34 +39,20 @@
     }
 
     .slidesjs-pagination {
-      margin: 7px 0 0;
-      float: right;
-      list-style: none;
+      display: none;
     }
 
     .slidesjs-pagination li {
-      float: left;
-      margin: 0 1px;
+      display: none;
     }
 
     .slidesjs-pagination li a {
-      display: block;
-      width: 13px;
-      height: 0;
-      padding-top: 13px;
-      background-image: url(../img/pagination.png);
-      background-position: 0 0;
-      float: left;
-      overflow: hidden;
+      display: none;
     }
 
     .slidesjs-pagination li a.active,
     .slidesjs-pagination li a:hover.active {
       background-position: 0 -13px
-    }
-
-    .slidesjs-pagination li a:hover {
-      background-position: 0 -26px
     }
 
     #slides a:link,

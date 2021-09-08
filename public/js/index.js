@@ -2,6 +2,7 @@
 // import aos animation
 import { aos_animation_handler } from "./aos_object.js";
 import { CreateBackdrop } from "../backdrop.js";
+import { createPagenationButtons } from "./PagenationButton.js";
 
 const xhttp = new XMLHttpRequest();
 const getPosts = document.querySelector(".get-posts");
@@ -49,6 +50,28 @@ $(document).ready(function () {
     $(ele).on("click", displayArrowDirection);
   });
 
+  // apply button effect handler
+  (() => {
+    const setBTNanimation = function () {
+      $(".BTN").each(function (ind, button) {
+        setTimeout(() => {
+          $(button).addClass("BTN_hover_effect");
+        }, ind * 200);
+
+        setTimeout(() => {
+          $(button).removeClass("BTN_hover_effect");
+        }, ind * 280);
+      });
+    };
+    // animation variable
+    const BTNHoverEffect = setInterval(setBTNanimation, 6000);
+    // remove interval on button hover
+    $(document).on("click", () => {
+      clearInterval(BTNHoverEffect);
+      $(".BTN").removeClass("BTN_hover_effect");
+    });
+  })();
+
   // ======CREATE IMAGE ELEMNET FOR SLIDE CONTAINER slidesjs-control =====
 
   const imageCreator = function (movie_results_image_link) {
@@ -71,19 +94,9 @@ $(document).ready(function () {
   };
 
   // PAGINATION BUTTONS HANDLER ================//
-  const createButtons = function () {
-    // fetch more movies button container
-    const fetch_more_m_btn_container = $("<div></div>").attr({
-        class: "more_movies_btn",
-      }),
-      btn_1 = $("<a></a>").attr({ href: "/", class: "btn_1, link" }).text("2"),
-      btn_2 = $("<a></a>").attr({ href: "/", class: "btn_2, link" }).text("3"),
-      btn_3 = $("<a></a>").attr({ href: "/", class: "btn_3, link" }).text("4"),
-      btn_4 = $("<a></a>").attr({ href: "/", class: "btn_4, link" }).text("5");
-
-    // append button container
-    $(fetch_more_m_btn_container).append(btn_1, btn_2, btn_3, btn_4);
-    $("#data-container").after(fetch_more_m_btn_container);
+  const paginationHandler = function () {
+    // create pagenation buttons
+    createPagenationButtons();
 
     // API call
     $(".more_movies_btn a").each(async (ind, movielink) => {
@@ -601,7 +614,7 @@ $(document).ready(function () {
       $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
       if (this.readyState === 4 && this.status === 200) {
         // create get more movies buttons
-        createButtons();
+        paginationHandler();
         // remove spinner
         $("#spinner").addClass("hide");
         // remove loading effetc class
