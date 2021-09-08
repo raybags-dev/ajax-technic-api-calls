@@ -60,7 +60,7 @@ $(document).ready(function () {
   };
 
   // Remove Backdrop handler
-  const removeBackdropContainer = function(){
+  const removeBackdropContainer = function () {
     $(".close-backdrop-btn").on("click", () => {
       $(".backdrop-container")
         .slideUp()
@@ -68,7 +68,7 @@ $(document).ready(function () {
           $(this).remove();
         });
     });
-  }
+  };
 
   // PAGINATION BUTTONS HANDLER ================//
   const createButtons = function () {
@@ -158,12 +158,15 @@ $(document).ready(function () {
               (function () {
                 $(".movie").each((index, movieItem) => {
                   $(movieItem).on("click", (e) => {
-                    const bd_title = $(movieItem).children()[0].innerText;
-                    const bd_image_url = $(movieItem).children()[1].src;
+                    const bd_title =
+                      $(movieItem).children()[0].innerText || "Title Unknown";
+                    const bd_image_url =
+                      $(movieItem).children()[1].src || noPosterAvailable;
                     const bd_details = $(movieItem).children()[2].innerText;
                     const bd_release_date =
-                      $(movieItem).children()[3].innerText;
-                    const bd_rating = $(movieItem).children()[4].innerText;
+                      $(movieItem).children()[3].innerText || "Not yet set";
+                    const bd_rating =
+                      $(movieItem).children()[4].innerText || "Not known";
 
                     CreateBackdrop(
                       `${bd_image_url}`,

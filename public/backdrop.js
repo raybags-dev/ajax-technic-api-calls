@@ -28,7 +28,7 @@ const CreateBackdrop = function (
     // movie details
     bd_movie_details = $("<p></p>")
       .attr({ class: "movie-details" })
-      .text("Plot line: " + bd_movieDetails),
+      .text(bd_movieDetails),
     // rating
     bd_ratings = $("<p></p>")
       .attr({ class: "rating" })
