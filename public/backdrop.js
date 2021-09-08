@@ -20,7 +20,7 @@ const CreateBackdrop = function (
     // backdrop title
     bd_title = $("<h1></h1>")
       .attr({ class: "backdrop-title" })
-      .text("Title:  " + bd_main_title),
+      .text(bd_main_title),
     // backdrop relase date
     bd_release_date = $("<p></p>")
       .attr({ class: "release-date" })
@@ -28,7 +28,7 @@ const CreateBackdrop = function (
     // movie details
     bd_movie_details = $("<p></p>")
       .attr({ class: "movie-details" })
-      .text("Details: " + bd_movieDetails),
+      .text("Plot line: " + bd_movieDetails),
     // rating
     bd_ratings = $("<p></p>")
       .attr({ class: "rating" })
