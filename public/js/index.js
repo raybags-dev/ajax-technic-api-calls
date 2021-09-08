@@ -59,6 +59,17 @@ $(document).ready(function () {
     $(".slidesjs-control").prepend($(IMG));
   };
 
+  // Remove Backdrop handler
+  const removeBackdropContainer = function(){
+    $(".close-backdrop-btn").on("click", () => {
+      $(".backdrop-container")
+        .slideUp()
+        .delay(1000, function () {
+          $(this).remove();
+        });
+    });
+  }
+
   // PAGINATION BUTTONS HANDLER ================//
   const createButtons = function () {
     // fetch more movies button container
@@ -161,13 +172,8 @@ $(document).ready(function () {
                       bd_details,
                       bd_rating
                     );
-                    $(".close-backdrop-btn").on("click", () => {
-                      $(".backdrop-container")
-                        .slideUp()
-                        .delay(1000, function () {
-                          $(this).remove();
-                        });
-                    });
+                    // remove backdrop
+                    removeBackdropContainer();
                   });
                 });
               })();
@@ -662,13 +668,8 @@ $(document).ready(function () {
                 bd_details,
                 bd_rating
               );
-              $(".close-backdrop-btn").on("click", () => {
-                $(".backdrop-container")
-                  .fadeOut()
-                  .delay(1000, function () {
-                    $(this).remove();
-                  });
-              });
+              // remove backdrop
+              removeBackdropContainer();
             });
           });
         })();
