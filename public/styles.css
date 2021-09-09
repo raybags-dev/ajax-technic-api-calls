@@ -1150,6 +1150,17 @@ p {
   padding: 0.4rem;
   text-shadow: 0px 2px 1px black;
 }
+@media screen and (max-width: 998px) {
+  .backdrop-container {
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 100;
+  }
+  .actors {
+    min-width: 100%;
+  }
+}
+
 @media screen and (max-width: 490px) {
   .actors p {
     font-size: 1em;
@@ -1161,19 +1172,17 @@ p {
     padding: 1rem 1rem;
   }
 }
+@media screen and (max-width: 384px) {
+  .movie-details {
+    max-width: 100%;
+    max-height: 74.19px;
+    overflow-y: auto;
+    background: rgb(15, 0, 0, 0.3);
+  }
+}
 @media screen and (max-width: 349px) {
   .actors h1 {
     font-size: 1em;
     line-height: 1.5rem;
-  }
-}
-@media screen and (max-width: 998px) {
-  .backdrop-container {
-    min-width: 100%;
-    min-height: 100%;
-    z-index: 100;
-  }
-  .actors {
-    min-width: 100%;
   }
 }
