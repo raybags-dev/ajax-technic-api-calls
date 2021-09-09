@@ -37,6 +37,19 @@ const noPosterAvailable =
 $(document).ready(function () {
   // Spinner
   $("#spinner").addClass("hide");
+
+  // remove backdrop on body click handler
+  $(document).on("click", (event) => {
+    try {
+      let clickedOnElement = event.target.closest(".backdrop-container").length;
+      if (clickedOnElement) {
+        $(".backdrop-container").remove();
+      } else {
+        $(".backdrop-container").remove();
+      }
+    } catch (e) {}
+  });
+
   // Handle arrow direction display handler
   const displayArrowDirection = function () {
     // elemnts to be hidden
@@ -692,7 +705,6 @@ $(document).ready(function () {
       }
     };
     xhttp.open("GET", resourceLink, true);
-
     xhttp.send();
     return;
   };

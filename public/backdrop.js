@@ -43,7 +43,7 @@ const CreateBackdrop = function (
       .append(bd_image, bd_innerText_container),
     // main container section
     bd_section = $("<section></section>")
-      .attr({ draggable: "true", class: "backdrop-container" })
+      .attr({ draggable: "true", class: "backdrop-container", id: "BD" })
       .append(bd_close_btn, bd_img_wrapper);
 
   $(".direction-arrow-container").before(bd_section);
