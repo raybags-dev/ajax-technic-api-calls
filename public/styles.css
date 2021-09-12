@@ -1062,11 +1062,7 @@ p {
   font-size: 1.3em;
   z-index: 2;
   isolation: isolate;
-  background: linear-gradient(
-    180deg,
-    hsl(0, 96%, 32%, 0.2) -10%,
-    hsl(240, 100%, 50%, 0.5)
-  );
+  border-radius: 50%;
 }
 .close-backdrop-btn::before {
   content: "x";
@@ -1081,12 +1077,8 @@ p {
   bottom: 0;
   font-size: 1.2em;
 }
-.close-backdrop-btn:hover {
-  color: hsl(0, 100%, 50%, 0.5);
-  cursor: pointer;
-  transition: 0.2s;
-  background: rgb(44, 44, 44, 0.4);
-  transition: 0.3s;
+.close-backdrop-btn:hover::before {
+  color: hsl(0, 100%, 50%, 0.9);
 }
 .close-backdrop-btn:active {
   color: white;
