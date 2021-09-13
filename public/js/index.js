@@ -3,7 +3,16 @@
 import { aos_animation_handler } from "./aos_object.js";
 import { CreateBackdrop } from "../backdrop.js";
 import { createPagenationButtons } from "./PagenationButton.js";
-import { postItem, CreateQuote, todoItem, userItem, createMovieItem, imageCreator } from "./templates.js";
+import {
+  postItem,
+  CreateQuote,
+  todoItem,
+  userItem,
+  createMovieItem,
+  imageCreator,
+  networkError,
+  serverError,
+} from "./templates.js";
 import { TMDT_API_KEY } from "./apikey.js";
 
 const xhttp = new XMLHttpRequest();
@@ -13,11 +22,9 @@ const getUsers = document.querySelector(".get-images");
 const getQuotes = document.querySelector(".get-quotes");
 const getMovies = document.querySelector(".get-movies");
 
-
 // API KEY
 // Initialize AOS animations
 aos_animation_handler();
-
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
 // tasks link
@@ -26,8 +33,6 @@ const todoLink = "https://jsonplaceholder.typicode.com/todos";
 const usersLink = "https://jsonplaceholder.typicode.com/users";
 // quotes link
 const quotesLink = "https://type.fit/api/quotes";
-
-
 
 // movies link (Discover)
 const moviewLink = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDT_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1`;
@@ -56,6 +61,12 @@ $(document).ready(function () {
     } catch (e) {}
   });
 
+  // offline online handler
+  const offline = function () {
+    let online = window.navigator.onLine;
+    if (!online) networkError();
+  };
+
   // Handle arrow direction display handler
   const displayArrowDirection = function () {
     // elemnts to be hidden
@@ -64,6 +75,7 @@ $(document).ready(function () {
       $(element).addClass("hide");
     });
   };
+
   // hide direction arrows on click of any button | engagement acquired
   $(".BTN").each((ind, ele) => {
     $(ele).on("click", displayArrowDirection);
@@ -111,7 +123,6 @@ $(document).ready(function () {
     $(".more_movies_btn a").each(async (ind, movielink) => {
       $(movielink).on("click", function (e) {
         e.preventDefault();
-
         // scroll handler
         // Handle content container inner scroll
         (function () {
@@ -125,6 +136,9 @@ $(document).ready(function () {
 
         //============ AJAX CALL FOR MORE MOVIES HANDLER
         (() => {
+          // offline handler
+
+          offline();
           // apply loading effetc class
           $("#data-container").addClass("loadingAnimation");
           // add spinner
@@ -213,6 +227,9 @@ $(document).ready(function () {
   };
   // ============AJAX CALL FOR PHOTO HANDLER =================
   const loadUsersDemoData = function (resourceLink) {
+    // offline handler
+
+    offline();
     //   remove placeholder container
     $(".placeholder-container").css({ display: "none" });
 
@@ -273,57 +290,67 @@ $(document).ready(function () {
 
   // ============AJAX CALL FOR POSTS HANDLER =================
   const loadPostsDemoData = function (resourceLink) {
-    //   remove placeholder container
-    $(".placeholder-container").css({ display: "none" });
-    // remove task data from the dom
-    $(".task").remove();
-    // remove post data from the dom
-    $(".photo").remove();
-    // remove user data from the dom
-    $(".user").remove();
-    // remove quote data from the dom
-    $(".quote").remove();
-    // remove users data from dom
-    $(".movie").remove();
-    // remove more movie button container
-    $(".more_movies_btn").remove();
+    // offline handler
 
-    // apply loading effetc class
-    $("#data-container").addClass("loadingAnimation");
-    // add spinner
-    $("#spinner").removeClass("hide");
+    offline();
+    try {
+      //   remove placeholder container
+      $(".placeholder-container").css({ display: "none" });
+      // remove task data from the dom
+      $(".task").remove();
+      // remove post data from the dom
+      $(".photo").remove();
+      // remove user data from the dom
+      $(".user").remove();
+      // remove quote data from the dom
+      $(".quote").remove();
+      // remove users data from dom
+      $(".movie").remove();
+      // remove more movie button container
+      $(".more_movies_btn").remove();
 
-    xhttp.onreadystatechange = function () {
-      // Hide heading text
-      $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
+      // apply loading effetc class
+      $("#data-container").addClass("loadingAnimation");
+      // add spinner
+      $("#spinner").removeClass("hide");
 
-      if (this.readyState === 4 && this.status === 200) {
-        // remove spinner
-        $("#spinner").addClass("hide");
+      xhttp.onreadystatechange = function (e) {
+        // Hide heading text
+        $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
 
-        // remove loading effetc class
-        $("#data-container").removeClass("loadingAnimation");
-        const data = this.responseText;
-        const response = JSON.parse(data);
+        if (this.readyState === 4 && this.status === 200) {
+          // remove spinner
+          $("#spinner").addClass("hide");
 
-        // posts data distructure=ing
-        response.forEach((obj) => {
-          const { body, id, title, userId } = obj;
-          postItem(userId, id, title, body);
-        });
-        // change heading text
-        $(".content-main-heading")
-          .text("all posts")
-          .css({ transform: "translate(-50%, -50%)" });
-      }
-    };
-    xhttp.open("GET", resourceLink, true);
-    xhttp.send();
-    return;
+          // remove loading effetc class
+          $("#data-container").removeClass("loadingAnimation");
+          const data = this.responseText;
+          const response = JSON.parse(data);
+
+          // posts data distructure=ing
+          response.forEach((obj) => {
+            const { body, id, title, userId } = obj;
+            postItem(userId, id, title, body);
+          });
+          // change heading text
+          $(".content-main-heading")
+            .text("all posts")
+            .css({ transform: "translate(-50%, -50%)" });
+        }
+      };
+
+      xhttp.open("GET", resourceLink, true);
+      xhttp.send();
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   //============ AJAX CALL FOR TODOS HANDLER
   const loadTodosDemoData = function (resourceLink) {
+    // offline handler
+
+    offline();
     //   remove placeholder container
     $(".placeholder-container").css({ display: "none" });
     // remove post data from the dom
@@ -367,12 +394,16 @@ $(document).ready(function () {
       }
     };
     xhttp.open("GET", resourceLink, true);
+
     xhttp.send();
     return;
   };
   // ==========================Quotes=====================
   //============ AJAX CALL FOR QUOTES HANDLER
   const loadQuotesDemoData = function (resourceLink) {
+    // offline handler
+
+    offline();
     //   remove placeholder container
     $(".placeholder-container").css({ display: "none" });
     // remove post data from the dom
@@ -423,6 +454,8 @@ $(document).ready(function () {
   // ==========================Quotes=====================
   //============ AJAX CALL FOR QUOTES HANDLER
   const loadMoviesDemoData = function (resourceLink) {
+    // offline handler
+    offline();
     //   remove placeholder container
     $(".placeholder-container").css({ display: "none" });
     // remove post data from the dom
@@ -447,6 +480,10 @@ $(document).ready(function () {
       // Hide heading text
       $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
       if (this.readyState === 4 && this.status === 200) {
+        // on error
+        if (this.onerror) {
+          console.log("the server is non responsive , check your internet.");
+        }
         // create get more movies buttons
         paginationHandler();
         // remove spinner
@@ -527,7 +564,6 @@ $(document).ready(function () {
     };
     xhttp.open("GET", resourceLink, true);
     xhttp.send();
-    return;
   };
 
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));

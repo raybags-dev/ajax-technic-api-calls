@@ -188,6 +188,9 @@ p {
     min-width: 47%;
     margin-bottom: 0.8rem;
   }
+  .button-wrapper {
+    overflow-y: hidden;
+  }
 }
 @media screen and (max-width: 695px) {
   .post,
@@ -597,9 +600,9 @@ p {
   display: flex;
   border-radius: 0.5rem;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  overflow: hidden;
+  overflow-x: auto;
   opacity: 0;
   -webkit-animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
   animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
@@ -639,11 +642,18 @@ p {
     font-size: 0.7em;
   }
 }
+@media screen and (min-width: 998px) and (max-width: 1353px) {
+  .button-wrapper {
+    overflow-x: hidden;
+  }
+}
 .button-wrapper button {
   position: relative;
-  width: 9em;
   height: 3em;
+  min-width: 9em;
+  min-height: 3em;
   border-radius: 5rem;
+  margin: 1em auto;
   background: hsl(0, 1%, 25%);
   border-color: rgba(3, 162, 253, 0.8) transparent hsl(0, 100%, 50%, 0.1)
     transparent;
@@ -662,8 +672,6 @@ p {
   }
 }
 .button-wrapper button:active {
-  margin: unset;
-  padding: unset;
   border: unset;
 }
 .button-wrapper button:hover {
@@ -1177,5 +1185,163 @@ p {
   .actors h1 {
     font-size: 1em;
     line-height: 1.5rem;
+  }
+}
+
+/* ERROR PAGE STYLES */
+.error-container {
+  position: absolute;
+  min-width: 100%;
+  height: 100%;
+  z-index: 150;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(30deg, rgb(65, 19, 19), hsl(229, 98%, 41%));
+}
+.error-heading {
+  font-size: 4em;
+  margin-top: -5%;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--main-font-family);
+  font-weight: 900;
+  text-shadow: 0px 5px 2px rgb(77, 76, 76);
+}
+.error-container p {
+  font-size: 1.7;
+  text-transform: uppercase;
+  font-family: var(--main-font-family);
+  color: hsl(0, 0%, 100%, 0.5);
+  margin: 2rem;
+}
+.error-container a {
+  text-decoration: none;
+  margin: 1rem;
+  font-size: 1.3em;
+  font-style: italic;
+  isolation: isolate;
+  overflow: hidden;
+}
+.error-container > a:not(:last-child) {
+  position: relative;
+  color: hsl(0, 0%, 100%, 0.5);
+  font-size: 1.3em;
+  background: linear-gradient(
+    45deg,
+    rgba(131, 2, 2, 0.3),
+    hsl(240, 100%, 50%, 0.6)
+  );
+  padding: 1rem;
+  outline: 7px solid hsl(0, 0%, 100%, 0.07);
+  transition: var(--transition);
+  box-shadow: 0px 10px 14px 10px rgb(0, 0, 0, 0.5);
+}
+.error-container > a:not(:last-child)::before {
+  content: "troubleshoot";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  bottom: 0;
+  color: hsl(0, 0%, 100%, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(
+    45deg,
+    rgba(131, 2, 2, 1),
+    hsl(240, 100%, 50%, 1)
+  );
+  z-index: 2;
+  transition: 0.3s;
+}
+.error-container > a:not(:last-child):hover::before {
+  top: 0%;
+}
+
+.error-container > a:not(:last-child):hover {
+  color: hsl(0, 0%, 100%, 0);
+  transition: 0.3s;
+  background: linear-gradient(
+    45deg,
+    rgba(131, 2, 2, 0.3),
+    hsl(240, 100%, 50%, 0.3)
+  );
+  outline: 7px solid hsl(0, 0%, 100%, 0.02);
+}
+.error-container a:last-child {
+  color: rgba(255, 255, 255, 0.5);
+  color: hsl(0, 0%, 100%, 0.5);
+  font-size: 1.3em;
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.error-container a:last-child i {
+  color: rgba(250, 250, 250, 0.5);
+  transform: translateX(0%);
+  padding: auto 0.3rem;
+  transition: 0.3s;
+  margin-left: 0.4rem;
+
+  animation: move-arrow infinite alternate running 1s;
+}
+.error-container a:last-child:hover {
+  color: rgba(233, 11, 11, 0.8);
+}
+@keyframes move-arrow {
+  0% {
+    transform: translateX(180%);
+  }
+  20% {
+    transform: translateX(0%);
+  }
+  40% {
+    transform: translateX(180%);
+  }
+  60% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+.error-container a:last-child:hover i {
+  animation-play-state: paused;
+}
+.error-container a:hover {
+  cursor: pointer;
+  color: rgba(250, 245, 245, 0.8);
+}
+@media screen and (max-width: 601px) {
+  .error-heading {
+    font-size: 3em;
+  }
+  .error-container p {
+    font-size: 1.7;
+    text-transform: uppercase;
+    font-family: var(--main-font-family);
+    color: hsl(0, 0%, 100%, 0.4);
+    text-align: center;
+  }
+  .error-container a {
+    margin: 0.2rem;
+    font-size: 1.2em;
+  }
+  .error-container > a:not(:last-child) {
+    padding: 0.7rem;
+  }
+  .error-container > a:last-child {
+    font-size: 1em;
+  }
+  .error-container a:last-child i {
+    margin-top: 3rem;
   }
 }
