@@ -1,6 +1,5 @@
 "use strict";
 
-import { aos_animation_handler } from "./aos_object.js";
 import { CreateBackdrop } from "../backdrop.js";
 import { createPagenationButtons } from "./PagenationButton.js";
 import {
@@ -11,7 +10,6 @@ import {
   createMovieItem,
   imageCreator,
   networkError,
-  serverError,
 } from "./templates.js";
 import { TMDT_API_KEY } from "./apikey.js";
 
@@ -21,10 +19,8 @@ const getTodos = document.querySelector(".get-todos");
 const getUsers = document.querySelector(".get-images");
 const getQuotes = document.querySelector(".get-quotes");
 const getMovies = document.querySelector(".get-movies");
+const getStarwarsXTER = document.querySelector(".get-starwars");
 
-// API KEY
-// Initialize AOS animations
-aos_animation_handler();
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
 // tasks link
@@ -35,9 +31,10 @@ const usersLink = "https://jsonplaceholder.typicode.com/users";
 const quotesLink = "https://type.fit/api/quotes";
 
 // movies link (Discover)
-const moviewLink = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDT_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1`;
 const movieLink_trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${TMDT_API_KEY}&page=1`;
-
+// starwars link
+const starwarsLink = `https://swapi.dev/api/people/`;
+// movie images
 const img_300 = "https://image.tmdb.org/t/p/w300";
 const img_500 = "https://image.tmdb.org/t/p/w500";
 
@@ -68,7 +65,7 @@ $(document).ready(function () {
   };
 
   // Handle arrow direction display handler
-  const displayArrowDirection = function () {
+  const hideArrowDirectionContainer = function () {
     // elemnts to be hidden
     const arrayOfElemnetsToBeHidden = [$(".direction-arrow-container")];
     $(arrayOfElemnetsToBeHidden).each((index, element) => {
@@ -78,7 +75,7 @@ $(document).ready(function () {
 
   // hide direction arrows on click of any button | engagement acquired
   $(".BTN").each((ind, ele) => {
-    $(ele).on("click", displayArrowDirection);
+    $(ele).on("click", hideArrowDirectionContainer);
   });
 
   // apply button effect handler
@@ -566,11 +563,80 @@ $(document).ready(function () {
     xhttp.send();
   };
 
+  //============ AJAX CALL FOR STARWARS HANDLER
+  const loadStarwarsXter = function (resourceLink) {
+    // offline handler
+    offline();
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
+    // remove post data from the dom
+    $(".post").remove();
+    // remove post data from the dom
+    $(".photo").remove();
+    // remove user data from the dom
+    $(".user").remove();
+    // remove quote data from the dom
+    $(".quote").remove();
+    // remove users data from dom
+    $(".movie").remove();
+    // remove todos
+    $(".todos").remove();
+    // remove more movie button container
+    $(".more_movies_btn").remove();
+
+    // apply loading effetc class
+    $("#data-container").addClass("loadingAnimation");
+    // add spinner
+    $("#spinner").removeClass("hide");
+
+    xhttp.onreadystatechange = function () {
+      // Hide heading text
+      $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
+      if (this.readyState === 4 && this.status === 200) {
+        // remove spinner
+        $("#spinner").addClass("hide");
+        // remove loading effetc class
+        $("#data-container").removeClass("loadingAnimation");
+        const data = this.responseText;
+        const response = JSON.parse(data);
+
+        const { count, next, results } = response;
+        const {
+          birth_year,
+          eye_color,
+          starships: filmsArray,
+          starshipsArray,
+          gender,
+          height,
+          homeworld,
+          mass,
+          name,
+          skin_color,
+          url: xter_image,
+        } = results;
+        console.log("COMING SOON");
+
+        // const {     } = obj;
+        // change heading text
+        $(".content-main-heading")
+          .text("Starwars Charactors")
+          .css({ transform: "translate(-50%, -50%)" });
+      }
+    };
+    xhttp.open("GET", resourceLink, true);
+
+    xhttp.send();
+    return;
+  };
+
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
   getQuotes.addEventListener("click", () => loadQuotesDemoData(quotesLink));
   getMovies.addEventListener("click", () =>
     loadMoviesDemoData(movieLink_trending)
+  );
+  getStarwarsXTER.addEventListener("click", () =>
+    loadStarwarsXter(starwarsLink)
   );
 });

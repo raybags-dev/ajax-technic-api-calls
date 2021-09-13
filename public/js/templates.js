@@ -179,21 +179,19 @@ const networkError = function () {
     // error head home button
     error_head_home = $("<a></a>")
       .attr({
-        href: "https://raybags.com/",
-        target: "_blank",
+        href: "https://api-ajax-technics-with-js-jquery.netlify.app/",
       })
-      .text("no thaks just take me home")
+      .text("refresh page")
       .append(arror_btn),
     // error network button
     network_btn_link = $("<a></a>")
       .attr({
-        href: "https://techgenix.com/wifi-connected-but-no-internet/",
-        target: "_blank",
+        href: "https://projects-page.netlify.app/",
       })
-      .text("learn more about this issue."),
+      .text("back to projects page."),
     // error details
     error_para = $("<p></p>").text(
-      "i'm not sure how to say this but it'd seem your internet is out."
+      "not sure how to say this but it'd seem your internet is out."
     ),
     // error heading
     error_heading = $("<h3></h3>")
@@ -215,47 +213,6 @@ const networkError = function () {
   return;
 };
 
-// SERVER ERROR HTML
-
-// ERROR HTML
-const serverError = function () {
-  // arrow button
-  const arror_btn = $("<i></i>").attr({ class: "fas fa-arrow-right" }),
-    // error head home button
-    error_head_home = $("<a></a>")
-      .attr({
-        href: "https://api-ajax-technics-with-js-jquery.netlify.app/",
-      })
-      .text("reload page")
-      .append(arror_btn),
-    // error server button
-    server_btn_link = $("<a></a>")
-      .attr({
-        href: "https://blog.thomasnet.com/industrial-website-404-error",
-        target: "_blank",
-      })
-      .text("learn more about this error."),
-    // error details
-    error_para = $("<p></p>").text("Sorry this resource was not found"),
-    // error heading
-    error_heading = $("<h3></h3>")
-      .attr({ class: "error-heading" })
-      .text("NOT FOUND"),
-    // error main wrapper
-    article = $("<article></article>")
-      .attr({ class: "error-container" })
-      .css({
-        background:
-          "linear-gradient(30deg, rgb(65, 19, 19), hsl(229, 98%, 41%))",
-      })
-      .append(error_heading, error_para, server_btn_link, error_head_home);
-
-  $(article).insertBefore(".direction-arrow-container");
-  $("#spinner").addClass("hide");
-  $("#data-container").removeClass("loadingAnimation");
-  $("#slides").addClass("hide");
-  return;
-};
 
 export {
   postItem,
@@ -265,5 +222,4 @@ export {
   createMovieItem,
   imageCreator,
   networkError,
-  serverError,
 };
