@@ -19,7 +19,6 @@ const getTodos = document.querySelector(".get-todos");
 const getUsers = document.querySelector(".get-images");
 const getQuotes = document.querySelector(".get-quotes");
 const getMovies = document.querySelector(".get-movies");
-const getStarwarsXTER = document.querySelector(".get-starwars");
 
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
@@ -32,15 +31,10 @@ const quotesLink = "https://type.fit/api/quotes";
 
 // movies link (Discover)
 const movieLink_trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${TMDT_API_KEY}&page=1`;
-// starwars link
-const starwarsLink = `https://swapi.dev/api/people/`;
-// movie images
-const img_300 = "https://image.tmdb.org/t/p/w300";
-const img_500 = "https://image.tmdb.org/t/p/w500";
 
-// no poster available
-const noPosterAvailable =
-  "https://www.movienewz.com/img/films/poster-holder.jpg";
+// movie images
+const img_500 = "https://image.tmdb.org/t/p/w500";
+const noPosterAvailable = `/public/img/noPoster.jpg`;
 
 $(document).ready(function () {
   // Spinner
@@ -154,6 +148,8 @@ $(document).ready(function () {
               const response = JSON.parse(data);
               const movieArray = response.results;
 
+              // no image replacement
+
               // Movies data distructuring
               movieArray.forEach((obj) => {
                 const {
@@ -166,9 +162,9 @@ $(document).ready(function () {
                   vote_average,
                 } = obj;
                 // poster or no poster
-                const moviePoster = `${img_500}/${
-                  backdrop_path || noPosterAvailable
-                }`;
+                const moviePoster = backdrop_path
+                  ? `${img_500}/${backdrop_path}`
+                  : noPosterAvailable;
                 // overview or no overview
                 const overView = `${
                   overview || "no movie description for this item"
@@ -413,6 +409,7 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove more movie button container
     $(".more_movies_btn").remove();
+    $(".detail__r").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -450,7 +447,7 @@ $(document).ready(function () {
 
   // ==========================Quotes=====================
   //============ AJAX CALL FOR QUOTES HANDLER
-  const loadMoviesDemoData = function (resourceLink) {
+  const loadMovies = function (resourceLink) {
     // offline handler
     offline();
     //   remove placeholder container
@@ -467,6 +464,7 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove all movie posters from slider
     $(".img_result").remove();
+    $(".detail__r").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -497,19 +495,15 @@ $(document).ready(function () {
             backdrop_path,
             original_name,
             overview,
-            poster_path,
             release_date,
             title,
             vote_average,
           } = obj;
-          // movie backdrop
-          const movieBackdrop = `${img_300}/${
-            poster_path || noPosterAvailable
-          }`;
+
           // poster or no poster
-          const moviePoster = `${img_500}/${
-            backdrop_path || noPosterAvailable
-          }`;
+          const moviePoster = backdrop_path
+            ? `${img_500}/${backdrop_path}`
+            : noPosterAvailable;
           // overview or no overview
           const overView = `${
             overview || "no movie description for this item"
@@ -563,80 +557,9 @@ $(document).ready(function () {
     xhttp.send();
   };
 
-  //============ AJAX CALL FOR STARWARS HANDLER
-  const loadStarwarsXter = function (resourceLink) {
-    // offline handler
-    offline();
-    //   remove placeholder container
-    $(".placeholder-container").css({ display: "none" });
-    // remove post data from the dom
-    $(".post").remove();
-    // remove post data from the dom
-    $(".photo").remove();
-    // remove user data from the dom
-    $(".user").remove();
-    // remove quote data from the dom
-    $(".quote").remove();
-    // remove users data from dom
-    $(".movie").remove();
-    // remove todos
-    $(".todos").remove();
-    // remove more movie button container
-    $(".more_movies_btn").remove();
-
-    // apply loading effetc class
-    $("#data-container").addClass("loadingAnimation");
-    // add spinner
-    $("#spinner").removeClass("hide");
-
-    xhttp.onreadystatechange = function () {
-      // Hide heading text
-      $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
-      if (this.readyState === 4 && this.status === 200) {
-        // remove spinner
-        $("#spinner").addClass("hide");
-        // remove loading effetc class
-        $("#data-container").removeClass("loadingAnimation");
-        const data = this.responseText;
-        const response = JSON.parse(data);
-
-        const { count, next, results } = response;
-        const {
-          birth_year,
-          eye_color,
-          starships: filmsArray,
-          starshipsArray,
-          gender,
-          height,
-          homeworld,
-          mass,
-          name,
-          skin_color,
-          url: xter_image,
-        } = results;
-        console.log("COMING SOON");
-
-        // const {     } = obj;
-        // change heading text
-        $(".content-main-heading")
-          .text("Starwars Charactors")
-          .css({ transform: "translate(-50%, -50%)" });
-      }
-    };
-    xhttp.open("GET", resourceLink, true);
-
-    xhttp.send();
-    return;
-  };
-
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
   getQuotes.addEventListener("click", () => loadQuotesDemoData(quotesLink));
-  getMovies.addEventListener("click", () =>
-    loadMoviesDemoData(movieLink_trending)
-  );
-  getStarwarsXTER.addEventListener("click", () =>
-    loadStarwarsXter(starwarsLink)
-  );
+  getMovies.addEventListener("click", () => loadMovies(movieLink_trending));
 });

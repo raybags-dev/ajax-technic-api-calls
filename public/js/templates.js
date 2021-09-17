@@ -133,6 +133,7 @@ const createMovieItem = function (
   movie_Release_date,
   movie_Vote_average
 ) {
+  // no poster available
   const singleMovieDiv = $("<div></div>")
       .attr({ class: "movie" })
       .animate({ opacity: 1 }),
@@ -212,8 +213,6 @@ const networkError = function () {
   $("#slides").addClass("hide");
   return;
 };
-
-
 export {
   postItem,
   CreateQuote,
