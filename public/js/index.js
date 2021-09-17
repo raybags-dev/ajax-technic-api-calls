@@ -409,7 +409,6 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove more movie button container
     $(".more_movies_btn").remove();
-    $(".detail__r").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -464,7 +463,6 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove all movie posters from slider
     $(".img_result").remove();
-    $(".detail__r").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
