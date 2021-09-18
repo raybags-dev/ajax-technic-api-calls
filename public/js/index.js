@@ -111,11 +111,13 @@ $(document).ready(function () {
     });
   };
 
-  // remove interval and anable ISS button 
+  // remove interval and anable ISS button
   (function () {
     $(".BTN").each((index, button) => {
-      $(button).on("click", (e) =>{
-        e.currentTarget.innerHTML !== "iss" ? clearInterval(ISS_interval) : true;
+      $(button).on("click", (e) => {
+        e.currentTarget.innerHTML !== "iss"
+          ? clearInterval(ISS_interval)
+          : true;
         // anable ISS button on click
         $(".get-ISS-location").removeAttr("disabled");
       });
@@ -614,29 +616,31 @@ $(document).ready(function () {
     // add spinner
     $("#spinner").removeClass("hide");
 
-      // create map and data html container
-      createISShtmlContainer();
-       // create map
-    const  mymap = L.map('ISS_map').setView([0, 0], 2);
+    // create map and data html container
+    createISShtmlContainer();
+    // create map
+    const mymap = L.map("ISS_map").setView([0, 0], 4);
     // map attribution
-    const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    const attribution =
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
     // tile URL
     const tileURL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
     // create icon
-    const  issIcon = L.icon({
-      iconUrl: '/public/img/iss.png',
+    const issIcon = L.icon({
+      iconUrl: "/public/img/iss.png",
       iconSize: [50, 32],
       iconAnchor: [25, 16],
-  });
+    });
+
     // map tyles
-    const tiles = L.tileLayer(tileURL, { attribution } );
+    const tiles = L.tileLayer(tileURL, { attribution });
     // add tiles to map
     tiles.addTo(mymap);
 
-    const marker = L.marker([0, 0], {icon: issIcon}).addTo(mymap);
-      // disable ISS button on click
-      $(".get-ISS-location").attr({disabled: "true"});
-    
+    const marker = L.marker([0, 0], { icon: issIcon }).addTo(mymap);
+    // disable ISS button on click
+    $(".get-ISS-location").attr({ disabled: "true" });
+
     // and update data automatically every after 3 seconds
     ISS_interval = setInterval(() => {
       xhttp.onreadystatechange = function () {
@@ -647,28 +651,46 @@ $(document).ready(function () {
           $("#data-container").removeClass("loadingAnimation");
           const data = this.responseText;
           const results = JSON.parse(data);
-          const {id,latitude, longitude, altitude, velocity, visibility, timestamp, units, name } = results;
+          const {
+            id,
+            latitude,
+            longitude,
+            altitude,
+            velocity,
+            visibility,
+            timestamp,
+            units,
+            name,
+          } = results;
 
           // create ISS conatiern
           const paragraphs = $(".ISS-data-wrapper").children();
-          paragraphs.each((index, paragraph)=>{
-           if($(paragraph).hasClass("iss-id")) $(paragraph).text(`space-station-id: ${id}`);
-           if($(paragraph).hasClass("iss-name")) $(paragraph).text(`space-station-name: ${name}`);
+          paragraphs.each((index, paragraph) => {
+            if ($(paragraph).hasClass("iss-id"))
+              $(paragraph).text(`space-station-id: ${id}`);
+            if ($(paragraph).hasClass("iss-name"))
+              $(paragraph).text(`space-station-name: ${name}`);
 
-           if($(paragraph).hasClass("iss-latitude")) $(paragraph).text(`iss-latitude: ${latitude}`);
-           if($(paragraph).hasClass("iss-longitude")) $(paragraph).text(`iss-longitude: ${longitude}`);
+            if ($(paragraph).hasClass("iss-latitude"))
+              $(paragraph).text(`iss-latitude: ${latitude}`);
+            if ($(paragraph).hasClass("iss-longitude"))
+              $(paragraph).text(`iss-longitude: ${longitude}`);
 
-           if($(paragraph).hasClass("iss-altitude")) $(paragraph).text(`iss-altitude: ${altitude}`);
-           if($(paragraph).hasClass("iss-velocity")) $(paragraph).text(`iss-velocity: ${velocity}`);
-           if($(paragraph).hasClass("iss-visibility")) $(paragraph).text(`iss-visibility: ${visibility}`);
-           if($(paragraph).hasClass("iss-timestamp")) $(paragraph).text(`data-timestamp: ${timestamp}`);
-           if($(paragraph).hasClass("iss-units")) $(paragraph).text(`units: ${units}`);
+            if ($(paragraph).hasClass("iss-altitude"))
+              $(paragraph).text(`iss-altitude: ${altitude}`);
+            if ($(paragraph).hasClass("iss-velocity"))
+              $(paragraph).text(`iss-velocity: ${velocity}`);
+            if ($(paragraph).hasClass("iss-visibility"))
+              $(paragraph).text(`iss-visibility: ${visibility}`);
+            if ($(paragraph).hasClass("iss-timestamp"))
+              $(paragraph).text(`data-timestamp: ${timestamp}`);
+            if ($(paragraph).hasClass("iss-units"))
+              $(paragraph).text(`units: ${units}`);
 
             // add marker to map
             marker.setLatLng([latitude, longitude]);
-            mymap.panTo([latitude, longitude])
-
-          })
+            mymap.panTo([latitude, longitude]);
+          });
         }
       };
 
@@ -676,7 +698,7 @@ $(document).ready(function () {
       xhttp.send();
     }, 2000);
     setTimeout(() => {
-        // change heading text
+      // change heading text
       $(".content-main-heading")
         .text("ISS Current Location")
         .css({ transform: "translate(-50%, -50%)" });
