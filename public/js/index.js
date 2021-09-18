@@ -10,6 +10,7 @@ import {
   createMovieItem,
   imageCreator,
   networkError,
+  createISShtmlContainer,
 } from "./templates.js";
 import { TMDT_API_KEY } from "./apikey.js";
 
@@ -19,6 +20,7 @@ const getTodos = document.querySelector(".get-todos");
 const getUsers = document.querySelector(".get-images");
 const getQuotes = document.querySelector(".get-quotes");
 const getMovies = document.querySelector(".get-movies");
+const getISSposition = document.querySelector(".get-ISS-location");
 
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
@@ -31,10 +33,14 @@ const quotesLink = "https://type.fit/api/quotes";
 
 // movies link (Discover)
 const movieLink_trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${TMDT_API_KEY}&page=1`;
-
 // movie images
 const img_500 = "https://image.tmdb.org/t/p/w500";
 const noPosterAvailable = `/public/img/noPoster.jpg`;
+// ISS base url
+const ISS_base_url = "https://api.wheretheiss.at/v1/satellites/25544";
+
+// Global ISS interval
+let ISS_interval;
 
 $(document).ready(function () {
   // Spinner
@@ -105,6 +111,17 @@ $(document).ready(function () {
     });
   };
 
+  // remove interval and anable ISS button 
+  (function () {
+    $(".BTN").each((index, button) => {
+      $(button).on("click", (e) =>{
+        e.currentTarget.innerHTML !== "iss" ? clearInterval(ISS_interval) : true;
+        // anable ISS button on click
+        $(".get-ISS-location").removeAttr("disabled");
+      });
+    });
+  })();
+
   // PAGINATION BUTTONS HANDLER ================//
   const paginationHandler = function () {
     // create pagenation buttons
@@ -140,6 +157,9 @@ $(document).ready(function () {
               $(".movie").remove();
               // remove all movie posters from slider
               $(".img_result").remove();
+              // remove ISS container
+              $(".ISS-map-container").remove();
+              $(".ISS-data-wrapper").remove();
               // remove spinner
               $("#spinner").addClass("hide");
               // remove loading effetc class
@@ -156,7 +176,6 @@ $(document).ready(function () {
                   backdrop_path,
                   original_name,
                   overview,
-                  poster_path,
                   release_date,
                   title,
                   vote_average,
@@ -236,6 +255,9 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove more movie button container
     $(".more_movies_btn").remove();
+    // remove ISS container
+    $(".ISS-map-container").remove();
+    $(".ISS-data-wrapper").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -301,6 +323,9 @@ $(document).ready(function () {
       $(".movie").remove();
       // remove more movie button container
       $(".more_movies_btn").remove();
+      // remove ISS container
+      $(".ISS-map-container").remove();
+      $(".ISS-data-wrapper").remove();
 
       // apply loading effetc class
       $("#data-container").addClass("loadingAnimation");
@@ -358,6 +383,9 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove more movie button container
     $(".more_movies_btn").remove();
+    // remove ISS container
+    $(".ISS-map-container").remove();
+    $(".ISS-data-wrapper").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -409,6 +437,9 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove more movie button container
     $(".more_movies_btn").remove();
+    // remove ISS container
+    $(".ISS-map-container").remove();
+    $(".ISS-data-wrapper").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -463,6 +494,9 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove all movie posters from slider
     $(".img_result").remove();
+    // remove ISS container
+    $(".ISS-map-container").remove();
+    $(".ISS-data-wrapper").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -555,9 +589,104 @@ $(document).ready(function () {
     xhttp.send();
   };
 
+  // ISS global position location handler
+
+  const loadISSLocation = function (resourceLink) {
+    // offline handler
+    offline();
+    // Hide heading text
+    $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
+    // remove post data from the dom
+    $(".post").remove();
+    // remove user data from the dom
+    $(".photo").remove();
+    // remove users data from dom
+    $(".task").remove();
+    // remove users data from dom
+    $(".quote").remove();
+    // remove all movie elements
+    $(".movie").remove();
+
+    // apply loading effect class
+    $("#data-container").addClass("loadingAnimation");
+    // add spinner
+    $("#spinner").removeClass("hide");
+
+      // create map and data html container
+      createISShtmlContainer();
+       // create map
+    const  mymap = L.map('ISS_map').setView([0, 0], 2);
+    // map attribution
+    const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    // tile URL
+    const tileURL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+    // create icon
+    const  issIcon = L.icon({
+      iconUrl: '/public/img/iss.png',
+      iconSize: [50, 32],
+      iconAnchor: [25, 16],
+  });
+    // map tyles
+    const tiles = L.tileLayer(tileURL, { attribution } );
+    // add tiles to map
+    tiles.addTo(mymap);
+
+    const marker = L.marker([0, 0], {icon: issIcon}).addTo(mymap);
+      // disable ISS button on click
+      $(".get-ISS-location").attr({disabled: "true"});
+    
+    // and update data automatically every after 3 seconds
+    ISS_interval = setInterval(() => {
+      xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          // remove spinner
+          $("#spinner").addClass("hide");
+          // remove loading effetc class
+          $("#data-container").removeClass("loadingAnimation");
+          const data = this.responseText;
+          const results = JSON.parse(data);
+          const {id,latitude, longitude, altitude, velocity, visibility, timestamp, units, name } = results;
+
+          // create ISS conatiern
+          const paragraphs = $(".ISS-data-wrapper").children();
+          paragraphs.each((index, paragraph)=>{
+           if($(paragraph).hasClass("iss-id")) $(paragraph).text(`space-station-id: ${id}`);
+           if($(paragraph).hasClass("iss-name")) $(paragraph).text(`space-station-name: ${name}`);
+
+           if($(paragraph).hasClass("iss-latitude")) $(paragraph).text(`iss-latitude: ${latitude}`);
+           if($(paragraph).hasClass("iss-longitude")) $(paragraph).text(`iss-longitude: ${longitude}`);
+
+           if($(paragraph).hasClass("iss-altitude")) $(paragraph).text(`iss-altitude: ${altitude}`);
+           if($(paragraph).hasClass("iss-velocity")) $(paragraph).text(`iss-velocity: ${velocity}`);
+           if($(paragraph).hasClass("iss-visibility")) $(paragraph).text(`iss-visibility: ${visibility}`);
+           if($(paragraph).hasClass("iss-timestamp")) $(paragraph).text(`data-timestamp: ${timestamp}`);
+           if($(paragraph).hasClass("iss-units")) $(paragraph).text(`units: ${units}`);
+
+            // add marker to map
+            marker.setLatLng([latitude, longitude]);
+            mymap.panTo([latitude, longitude])
+
+          })
+        }
+      };
+
+      xhttp.open("GET", resourceLink, true);
+      xhttp.send();
+    }, 1000);
+    setTimeout(() => {
+        // change heading text
+      $(".content-main-heading")
+        .text("ISS Current Location")
+        .css({ transform: "translate(-50%, -50%)" });
+    }, 3500);
+  };
+
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
   getQuotes.addEventListener("click", () => loadQuotesDemoData(quotesLink));
   getMovies.addEventListener("click", () => loadMovies(movieLink_trending));
+  getISSposition.addEventListener("click", () => loadISSLocation(ISS_base_url));
 });

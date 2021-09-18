@@ -12,6 +12,20 @@
       style="border-radius: 50%"
       href="/public/img/new_logo.png"
     />
+    <!-- leaflet css CDN -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <!-- leaflet js CDN -->
+
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
     <!-- custom css -->
     <link rel="stylesheet" href="/public/styles.css" />
     <!-- Font Awesome CDN -->
@@ -57,8 +71,8 @@
           </li>
 
           <li>
-            <a href="https://wheretheiss.at/w/developer" target="_blank"
-              >Where the ISS at</a
+            <a href="https://wheretheiss.at/" target="_blank"
+              ><q>International Space Station</q>current location.</a
             >
           </li>
         </ul>
@@ -69,8 +83,8 @@
         <p>
           Data fetched include posts, tasks/todos, users from jasonplaceholder
           API, Inpsirational quotes from <q>Quotes free API</q>, Internation
-          space Station current position and much more. Checkout a list a APIs
-          I'm working with at on github
+          space Station current position and much more. I've used <a href="https://github.com/Leaflet/Leaflet" target="_blank">leaflet</a> API for rendering map,  Checkout the list a APIs
+          I'm working with on github
           <q>
             <a href="https://github.com/public-apis/public-apis" target="_blank"
               >page</a
@@ -85,12 +99,14 @@
       </div>
     </section>
     <aside class="button-wrapper">
-      <button class="get-posts BTN">Posts</button>
-      <button class="get-todos BTN">Tasks</button>
-      <button class="get-images BTN">Users</button>
-      <button class="get-movies BTN">Movies</button>
-      <button class="get-quotes BTN">Quotes</button>
-      <button class="get-weather BTN">ISS</button>
+      <button class="get-posts BTN" title="get random posts">posts</button>
+      <button class="get-todos BTN" title="get tasks">tasks</button>
+      <button class="get-images BTN" title="get random users">users</button>
+      <button class="get-movies BTN" title="get trending movies">movies</button>
+      <button class="get-quotes BTN" title="words of wisdom">quotes</button>
+      <button class="get-ISS-location BTN" title="international space station">
+        iss
+      </button>
     </aside>
     <div class="herder">
       <h1 class="content-main-heading">visualize data</h1>
