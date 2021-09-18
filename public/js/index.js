@@ -674,7 +674,7 @@ $(document).ready(function () {
 
       xhttp.open("GET", resourceLink, true);
       xhttp.send();
-    }, 1000);
+    }, 2000);
     setTimeout(() => {
         // change heading text
       $(".content-main-heading")
