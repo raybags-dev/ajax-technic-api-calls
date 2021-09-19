@@ -646,22 +646,18 @@ p {
     top: 0;
     left: 0;
     flex-direction: row;
-    width: 80%;
-    height: 5%;
+    width: 85%;
+    height: 6%;
+    padding: 1rem;
     border-radius: unset;
     margin: 0.1rem 0.5rem;
     justify-content: center;
     transform: translateX(7%);
   }
-  .button-wrapper {
-    padding: 1rem;
-    height: 6%;
-    width: 85%;
-  }
   .button-wrapper button {
     margin-left: 0.5rem;
     margin-top: 0.2rem;
-    font-size: 0.7em;
+    font-size: 0.65em;
   }
 }
 @media screen and (min-width: 998px) and (max-width: 1353px) {
@@ -1295,8 +1291,8 @@ p {
   overflow: hidden;
   transition: opacity 0.5s;
   filter: invert(-100%);
-  -webkit-animation: revealMap 1 forwards 2s 2s;
-  animation: revealMap 1 forwards 2s 2s;
+  -webkit-animation: revealMap 1 forwards 2s 2.5s;
+  animation: revealMap 1 forwards 2s 2.5s;
 }
 @-webkit-keyframes revealMap {
   to {
@@ -1306,6 +1302,43 @@ p {
 @keyframes revealMap {
   to {
     opacity: 1;
+  }
+}
+
+.ISS-map-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  z-index: 500;
+  overflow: hidden;
+  transition: width 0.5s;
+  animation: removeCatains 1 forwards ease-in 0.5s 4s;
+
+  filter: blur(10px);
+}
+.ISS-map-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  z-index: 500;
+  overflow: hidden;
+  transition: width 0.5s;
+  animation: removeCatains 1 forwards ease-in 0.5s 4s;
+
+  filter: blur(10px);
+}
+
+@keyframes removeCatains {
+  to {
+    width: 0;
   }
 }
 #ISS_map {
@@ -1321,7 +1354,8 @@ p {
   width: 30%;
   display: flex;
   transition: 0.3s;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   justify-content: space-around;
   align-items: flex-start;
   flex-direction: column;

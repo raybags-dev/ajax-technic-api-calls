@@ -610,6 +610,8 @@ $(document).ready(function () {
     $(".quote").remove();
     // remove all movie elements
     $(".movie").remove();
+    // remove paginatino component
+    $(".more_movies_btn").remove();
 
     // apply loading effect class
     $("#data-container").addClass("loadingAnimation");
@@ -642,7 +644,7 @@ $(document).ready(function () {
     $(".get-ISS-location").attr({ disabled: "true" });
 
     // and update data automatically every after 3 seconds
-    ISS_interval = setInterval(() => {
+    const getISSdataInINtervals = () => {
       xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
           // remove spinner
@@ -697,13 +699,18 @@ $(document).ready(function () {
 
       xhttp.open("GET", resourceLink, true);
       xhttp.send();
-    }, 2000);
-    setTimeout(() => {
+    };
+
+    // set heading
+    const setISS_heading = () => {
       // change heading text
       $(".content-main-heading")
         .text("ISS Current Location")
         .css({ transform: "translate(-50%, -50%)" });
-    }, 3500);
+    };
+    // call get data handler after 1.5seconds
+    ISS_interval = setInterval(getISSdataInINtervals, 1500);
+    setTimeout(setISS_heading, 3500);
   };
 
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));
