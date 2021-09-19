@@ -320,6 +320,13 @@ p {
 .movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection,
+.movie p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
 .post p::selection,
 .task p::selection,
 .photo p::selection,
@@ -1290,6 +1297,7 @@ p {
   opacity: 0;
   overflow: hidden;
   transition: opacity 0.5s;
+  -webkit-filter: invert(-100%);
   filter: invert(-100%);
   -webkit-animation: revealMap 1 forwards 2s 2.5s;
   animation: revealMap 1 forwards 2s 2.5s;
@@ -1312,11 +1320,15 @@ p {
   left: 0;
   width: 50%;
   height: 100%;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 500;
   overflow: hidden;
   transition: width 0.5s;
+  -webkit-animation: removeCatains 1 forwards ease-in 0.5s 4s;
   animation: removeCatains 1 forwards ease-in 0.5s 4s;
+
+  -webkit-filter: blur(10px);
 
   filter: blur(10px);
 }
@@ -1327,13 +1339,23 @@ p {
   right: 0;
   width: 50%;
   height: 100%;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 500;
   overflow: hidden;
   transition: width 0.5s;
+  -webkit-animation: removeCatains 1 forwards ease-in 0.5s 4s;
   animation: removeCatains 1 forwards ease-in 0.5s 4s;
 
+  -webkit-filter: blur(10px);
+
   filter: blur(10px);
+}
+
+@-webkit-keyframes removeCatains {
+  to {
+    width: 0;
+  }
 }
 
 @keyframes removeCatains {
