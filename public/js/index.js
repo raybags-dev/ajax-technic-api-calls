@@ -672,12 +672,12 @@ $(document).ready(function () {
               $(paragraph).text(`space-station-name: ${name}`);
 
             if ($(paragraph).hasClass("iss-latitude"))
-              $(paragraph).text(`iss-latitude: ${latitude}`);
+              $(paragraph).text(`iss-latitude: ${latitude.toFixed(4)} °`);
             if ($(paragraph).hasClass("iss-longitude"))
-              $(paragraph).text(`iss-longitude: ${longitude}`);
+              $(paragraph).text(`iss-longitude: ${longitude.toFixed(4)} °`);
 
             if ($(paragraph).hasClass("iss-altitude"))
-              $(paragraph).text(`iss-altitude: ${altitude}`);
+              $(paragraph).text(`iss-altitude: ${altitude.toFixed(4)} °`);
             if ($(paragraph).hasClass("iss-velocity"))
               $(paragraph).text(`iss-velocity: ${velocity}`);
             if ($(paragraph).hasClass("iss-visibility"))
@@ -689,7 +689,8 @@ $(document).ready(function () {
 
             // add marker to map
             marker.setLatLng([latitude, longitude]);
-            mymap.panTo([latitude, longitude]);
+            mymap.setView([latitude, longitude]);
+            // mymap.panTo([latitude, longitude]);
           });
         }
       };
