@@ -217,6 +217,9 @@ const networkError = function () {
 // ISS HTML template
 
 const createISShtmlContainer = function(){
+  const current_date = new Date().toLocaleDateString();
+  const current_time = new Date().toLocaleTimeString();
+
     const para_id = $("<p></p>").attr({class: "iss-id"}).text(`id: --`),    
           para_name = $("<p></p>").attr({class: "iss-name"}).text(`name: --`),
           para_1 = $("<p></p>").attr({class: "iss-latitude"}).text(`latitude: --`),
@@ -225,9 +228,11 @@ const createISShtmlContainer = function(){
           para_4 = $("<p></p>").attr({class: "iss-velocity"}).text(`velocity: --`),
           para_5 = $("<p></p>").attr({class: "iss-visibility"}).text(`visibility:  --`),
           para_6 = $("<p></p>").attr({class: "iss-timestamp"}).text(`timestamp: --`),
-          para_7 = $("<p></p>").attr({class: "iss-units"}).text(`units:  --`);
+          para_7 = $("<p></p>").attr({class: "iss-units"}).text(`units:  --`),
+          para_8 = $("<p></p>").attr({class: "local-time"}).text(`local time: ${current_date}, ${current_time}`);
 
-        const  ISS_data_container = $("<div></div>").attr({class: "ISS-data-wrapper"}).append($(para_id), $(para_name),$(para_1), $(para_2), $(para_3),$(para_4),$(para_5),$(para_6),$(para_7),);
+
+        const  ISS_data_container = $("<div></div>").attr({class: "ISS-data-wrapper"}).append($(para_id), $(para_name),$(para_1), $(para_2), $(para_3),$(para_4),$(para_5),$(para_6),$(para_7), $(para_8),);
         $(".main-wrapper").append(ISS_data_container);
         // main container 
         const  ISS_map_container = $("<div></div>").attr({class: "ISS-map-container", id: "ISS_map"});

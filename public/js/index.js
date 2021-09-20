@@ -31,8 +31,6 @@ const usersLink = "https://jsonplaceholder.typicode.com/users";
 // quotes link
 const quotesLink = "https://type.fit/api/quotes";
 
-// movies link (Discover)
-const movieLink_trending = `https://api.themoviedb.org/3/trending/all/day?api_key=${TMDT_API_KEY}&page=1`;
 // movie images
 const img_500 = "https://image.tmdb.org/t/p/w500";
 const noPosterAvailable = `/public/img/noPoster.jpg`;
@@ -479,7 +477,10 @@ $(document).ready(function () {
 
   // ==========================Quotes=====================
   //============ AJAX CALL FOR QUOTES HANDLER
-  const loadMovies = function (resourceLink) {
+  // increment count on click for movie pages
+  let pageCounter = 1;
+
+  const loadMovies = function () {
     // offline handler
     offline();
     //   remove placeholder container
@@ -493,7 +494,7 @@ $(document).ready(function () {
     // remove users data from dom
     $(".quote").remove();
     // remove all movie elements
-    $(".movie").remove();
+    // $(".movie").remove();
     // remove all movie posters from slider
     $(".img_result").remove();
     // remove ISS container
@@ -585,10 +586,22 @@ $(document).ready(function () {
             });
           });
         })();
+
+        // go to bottom
+        (() => {
+          $("#data-container").animate({
+            scrollTop: $(".main-wrapper .movie:last-child").position().top,
+          });
+        })();
       }
     };
-    xhttp.open("GET", resourceLink, true);
+    xhttp.open(
+      "GET",
+      `https://api.themoviedb.org/3/trending/all/day?api_key=${TMDT_API_KEY}&page=${pageCounter}`,
+      true
+    );
     xhttp.send();
+    pageCounter++;
   };
 
   // ISS global position location handler
@@ -676,16 +689,16 @@ $(document).ready(function () {
             if ($(paragraph).hasClass("iss-latitude"))
               $(paragraph).text(`iss-latitude: ${latitude.toFixed(4)} °`);
             if ($(paragraph).hasClass("iss-longitude"))
-              $(paragraph).text(`iss-longitude: ${longitude.toFixed(4)} °`);
+              $(paragraph).text(`longitude: ${longitude.toFixed(4)} °`);
 
             if ($(paragraph).hasClass("iss-altitude"))
-              $(paragraph).text(`iss-altitude: ${altitude.toFixed(4)} °`);
+              $(paragraph).text(`altitude: ${altitude.toFixed(4)} °`);
             if ($(paragraph).hasClass("iss-velocity"))
-              $(paragraph).text(`iss-velocity: ${velocity}`);
+              $(paragraph).text(`velocity: ${velocity}`);
             if ($(paragraph).hasClass("iss-visibility"))
-              $(paragraph).text(`iss-visibility: ${visibility}`);
+              $(paragraph).text(`visibility: ${visibility}`);
             if ($(paragraph).hasClass("iss-timestamp"))
-              $(paragraph).text(`data-timestamp: ${timestamp}`);
+              $(paragraph).text(`dtimestamp: ${timestamp}`);
             if ($(paragraph).hasClass("iss-units"))
               $(paragraph).text(`units: ${units}`);
 
@@ -717,6 +730,6 @@ $(document).ready(function () {
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
   getQuotes.addEventListener("click", () => loadQuotesDemoData(quotesLink));
-  getMovies.addEventListener("click", () => loadMovies(movieLink_trending));
+  getMovies.addEventListener("click", () => loadMovies());
   getISSposition.addEventListener("click", () => loadISSLocation(ISS_base_url));
 });
