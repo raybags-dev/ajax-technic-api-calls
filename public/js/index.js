@@ -1,6 +1,6 @@
 "use strict";
 
-import { CreateBackdrop } from "../backdrop.js";
+import { CreateBackdrop } from "./backdrop.js";
 import { createPagenationButtons } from "./PagenationButton.js";
 import {
   postItem,
@@ -11,6 +11,7 @@ import {
   imageCreator,
   networkError,
   createISShtmlContainer,
+  graphContainer,
 } from "./templates.js";
 import { TMDT_API_KEY } from "./apikey.js";
 
@@ -21,6 +22,7 @@ const getUsers = document.querySelector(".get-images");
 const getQuotes = document.querySelector(".get-quotes");
 const getMovies = document.querySelector(".get-movies");
 const getISSposition = document.querySelector(".get-ISS-location");
+const getGlobalData = document.querySelector(".get-temperature");
 
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
@@ -36,8 +38,9 @@ const img_500 = "https://image.tmdb.org/t/p/w500";
 const noPosterAvailable = `/public/img/noPoster.jpg`;
 // ISS base url
 const ISS_base_url = "https://api.wheretheiss.at/v1/satellites/25544";
-
 // Global ISS interval
+const temp_url = "/public/data/ZonAnn.Ts+dSST.csv";
+
 let ISS_interval;
 
 $(document).ready(function () {
@@ -160,6 +163,9 @@ $(document).ready(function () {
               // remove ISS container
               $(".ISS-map-container").remove();
               $(".ISS-data-wrapper").remove();
+
+              // remove global temperature component
+              $("#chart").remove();
               // remove spinner
               $("#spinner").addClass("hide");
               // remove loading effetc class
@@ -258,6 +264,8 @@ $(document).ready(function () {
     // remove ISS container
     $(".ISS-map-container").remove();
     $(".ISS-data-wrapper").remove();
+    // remove global temperature component
+    $("#chart").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -326,6 +334,8 @@ $(document).ready(function () {
       // remove ISS container
       $(".ISS-map-container").remove();
       $(".ISS-data-wrapper").remove();
+      // remove global temperature component
+      $("#chart").remove();
 
       // apply loading effetc class
       $("#data-container").addClass("loadingAnimation");
@@ -386,6 +396,8 @@ $(document).ready(function () {
     // remove ISS container
     $(".ISS-map-container").remove();
     $(".ISS-data-wrapper").remove();
+    // remove global temperature component
+    $("#chart").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -419,7 +431,6 @@ $(document).ready(function () {
     xhttp.send();
     return;
   };
-  // ==========================Quotes=====================
   //============ AJAX CALL FOR QUOTES HANDLER
   const loadQuotesDemoData = function (resourceLink) {
     // offline handler
@@ -440,6 +451,8 @@ $(document).ready(function () {
     // remove ISS container
     $(".ISS-map-container").remove();
     $(".ISS-data-wrapper").remove();
+    // remove global temperature component
+    $("#chart").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -475,8 +488,7 @@ $(document).ready(function () {
     return;
   };
 
-  // ==========================Quotes=====================
-  //============ AJAX CALL FOR QUOTES HANDLER
+  //============ AJAX CALL FOR MOVIE HANDLER==========
   // increment count on click for movie pages
   let pageCounter = 1;
 
@@ -493,13 +505,13 @@ $(document).ready(function () {
     $(".task").remove();
     // remove users data from dom
     $(".quote").remove();
-    // remove all movie elements
-    // $(".movie").remove();
     // remove all movie posters from slider
     $(".img_result").remove();
     // remove ISS container
     $(".ISS-map-container").remove();
     $(".ISS-data-wrapper").remove();
+    // remove global temperature component
+    $("#chart").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -625,6 +637,8 @@ $(document).ready(function () {
     $(".movie").remove();
     // remove paginatino component
     $(".more_movies_btn").remove();
+    // remove global temperature component
+    $("#chart").remove();
 
     // apply loading effect class
     $("#data-container").addClass("loadingAnimation");
@@ -726,10 +740,102 @@ $(document).ready(function () {
     setTimeout(setISS_heading, 3500);
   };
 
+  // create chart handler
+  const xlabels = [];
+  const ytemps = [];
+  const createChart = async function () {
+    const graph_options = ["line", "bubble", "bar", "scatter"];
+
+    const container = document.getElementById("chart");
+
+    const ctx = container.getContext("2d");
+    const myChart = new Chart(ctx, {
+      type: "bubble",
+      data: {
+        labels: xlabels,
+        datasets: [
+          {
+            label:
+              "Combined Land-Surface Air and Sea-Surface Water Temperature ℃ ",
+            data: ytemps,
+            fill: false,
+            responsive: true,
+            backgroundColor: "rgba(255, 99, 132, 0.7)",
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            ticks: {
+              callback: function (value, index, values) {
+                return `${value.toFixed(2)} º`;
+              },
+            },
+          },
+        },
+      },
+    });
+  };
+  //==== AJAX CALL FOR GLOBAL TEMPERATURE HANDLER =====//
+
+  const globalTemp = function (resourceLink) {
+    // offline handler
+    offline();
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
+    // empty content container
+    $("#data-container").empty();
+    // apply loading effetc class
+    $("#data-container").addClass("loadingAnimation");
+    // add spinner
+    $("#spinner").removeClass("hide");
+
+    xhttp.onreadystatechange = async function () {
+      // Hide heading text
+      $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
+      if (this.readyState === 4 && this.status === 200) {
+        // remove spinner
+        $("#spinner").addClass("hide");
+        // remove loading effetc class
+        $("#data-container").removeClass("loadingAnimation");
+        // create canvas for data
+        graphContainer();
+        // create chart
+        createChart();
+
+        // data
+        const data = this.responseText;
+        // create tabel of data
+        const data_table = data.split(/\n/).slice(1);
+        // create rows and columns from data
+        data_table.forEach((row) => {
+          const columns = row.split(",");
+          const year = columns[0];
+          const temp = columns[2];
+
+          xlabels.push(year);
+          ytemps.push(parseFloat(temp));
+        });
+
+        // change heading text
+        $(".content-main-heading")
+          .text("Global Temperature")
+          .css({ transform: "translate(-50%, -50%)" });
+      }
+    };
+    xhttp.open("GET", resourceLink, true);
+    xhttp.send();
+    return;
+  };
+
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
   getQuotes.addEventListener("click", () => loadQuotesDemoData(quotesLink));
   getMovies.addEventListener("click", () => loadMovies());
   getISSposition.addEventListener("click", () => loadISSLocation(ISS_base_url));
+  getGlobalData.addEventListener("click", () => globalTemp(temp_url));
 });

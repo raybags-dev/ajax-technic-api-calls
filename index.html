@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ajax technic</title>
+    <title>Data Visualization</title>
     <link
       rel="icon"
       type="image/png"
@@ -20,12 +20,13 @@
       crossorigin=""
     />
     <!-- leaflet js CDN -->
-
     <script
       src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
       integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
       crossorigin=""
     ></script>
+    <!-- chart js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <!-- custom css -->
     <link rel="stylesheet" href="/public/styles.css" />
     <!-- Font Awesome CDN -->
@@ -52,6 +53,7 @@
       <div class="placeholder-container">
         <p>This application uses AJAX technic to fetch data from:</p>
 
+        <hr />
         <ul class="list-container">
           <li>
             <a href="https://jsonplaceholder.typicode.com/" target="_blank"
@@ -75,26 +77,67 @@
               ><q>International Space Station</q>current location.</a
             >
           </li>
+          <li>
+            <a href="https://data.nasa.gov/" target="_blank"
+              ><q>NASA OPEN DATA PORTAL</q>global temperature.</a
+            >
+          </li>
         </ul>
+        <hr />
+        <br />
         <p>
-          You can fetch data from each api by clicking any of the buttons on
-          your left
+          &#x025C9; You can fetch data from each api by clicking any of the
+          buttons on your left.
         </p>
         <p>
-          Data fetched include posts, tasks/todos, users from jasonplaceholder
-          API, Inpsirational quotes from <q>Quotes free API</q>, Internation
-          space Station current position and much more. I've used <a href="https://github.com/Leaflet/Leaflet" target="_blank">leaflet</a> API for rendering the map.  Checkout the list of APIs
-          I'm working with on github.
+          &#x025C9; Data fetched include posts, tasks/todos, users from
+          jasonplaceholder API, Inpsirational quotes from
+          <q>Quotes free API</q>, Internation space Station current position and
+          much more. <br /><br />
+          &#x025C9; I've used
+          <a href="https://github.com/Leaflet/Leaflet" target="_blank"
+            >leaflet</a
+          >
+          API for rendering the map. Checkout the list of APIs I'm working with
+          on github
           <q>
             <a href="https://github.com/public-apis/public-apis" target="_blank"
               >page</a
-            >
-          </q>
+            > </q
+          >.
         </p>
-        <p>Feel free to explore.</p>
         <p>
-          More APIs like "weather APIs", "foods", and much more will be
-          intergrated here as well. Don't forget to check-in.
+          &#x025C9; Tabular data displayed in this project comes from National
+          Aeronautics and Space Administration
+          <q
+            ><a href="https://data.nasa.gov/stories/s/gk8h-th3y" target="_blank"
+              >NASA</a
+            ></q
+          >
+          particularly from the Goddard Institute of Space Studies.This CSV file
+          include the combined global average of land surface, air and sea
+          surface water temperature from 1880 to-date.
+          <code
+            ><a href="https://www.chartjs.org/" target="_blank">
+              chat.js</a
+            ></code
+          >
+          has been used for <q>graph representation</q>.
+        </p>
+        <p>
+          &#x025C9; Global-mean monthly, seasonal, and annual means,
+          1880-present, updated through most recent month: TXT, CSV Northern
+          Hemisphere-mean monthly, seasonal, and annual means, 1880-present,
+          updated through most recent month: TXT, CSV Southern Hemisphere-mean
+          monthly, seasonal, and annual means, 1880-present, updated through
+          most recent month: TXT, CSV Zonal annual means, 1880-present, updated
+          through most recent complete year: TXT, CSV.
+        </p>
+
+        <p>&#x025C9; Feel free to explore.</p>
+        <p>
+          &#x025C9; More APIs like "weather APIs", "foods", and much more will
+          be intergrated here as well. Don't forget to check-in.
         </p>
       </div>
     </section>
@@ -106,6 +149,9 @@
       <button class="get-quotes BTN" title="words of wisdom">quotes</button>
       <button class="get-ISS-location BTN" title="international space station">
         iss
+      </button>
+      <button class="get-temperature BTN" title="global temperature">
+        G-Temp &deg;
       </button>
     </aside>
     <div class="herder">

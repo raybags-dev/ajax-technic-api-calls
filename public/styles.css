@@ -28,6 +28,17 @@ body {
 }
 p {
   text-shadow: var(--main-text-shadow);
+  color: "#c7c7c7";
+}
+a {
+  color: rgb(197, 16, 4);
+  text-decoration: none;
+}
+a:visited {
+  color: rgb(12, 89, 204);
+}
+a:hover {
+  color: hsl(120, 95%, 32%);
 }
 
 .main-wrapper {
@@ -1485,4 +1496,25 @@ p {
   .ISS-data-wrapper p::after {
     all: unset;
   }
+}
+
+/* Global temperature styles */
+#chart {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: contain;
+}
+.text-btn-wrapper {
+  position: absolute;
+  width: 10%;
+  right: 0;
+  top: 0;
+  height: 10%;
+  background: green;
+  z-index: 9000;
 }
