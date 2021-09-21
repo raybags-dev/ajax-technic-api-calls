@@ -2,7 +2,7 @@
 https://api-ajax-technics-with-js-jquery.netlify.app/
 ![go to live version]("https://api-ajax-technics-with-js-jquery.netlify.app/")
 
-![UI built with html css javascrpt adn jquery](./public/img/ajax_technic.png)
+![UI built with html css javascrpt adn jquery](./public/img/combined.png)
 
 
 
