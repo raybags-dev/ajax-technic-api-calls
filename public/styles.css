@@ -1426,6 +1426,7 @@ a:hover {
   cursor: pointer;
   isolation: isolate;
   color: rgb(253, 252, 252);
+  width: 90%;
   text-shadow: 1px 0px 0 #3d3d3d, -1px 1px -1px #fcf8f8;
 }
 .ISS-data-wrapper::-webkit-scrollbar {
