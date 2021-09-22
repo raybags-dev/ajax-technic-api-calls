@@ -45,7 +45,7 @@ let ISS_interval;
 
 $(document).ready(function () {
   // slide in all paragraphs
-  $(".main-wrapper p").each((index, p) => {
+  $(".p_x").each((index, p) => {
     $(p)
       .delay(100 * index)
       .animate(
@@ -57,7 +57,7 @@ $(document).ready(function () {
   });
   // animate lines
   $(".lines").each((index, lines) =>
-    $(lines).delay(2500).animate({ width: "100%" })
+    $(lines).delay(2500).animate({ width: "100%", opacity: 1 })
   );
   // Spinner
   $("#spinner").addClass("hide");
