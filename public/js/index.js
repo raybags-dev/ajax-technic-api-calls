@@ -44,6 +44,21 @@ const temp_url = "/public/data/ZonAnn.Ts+dSST.csv";
 let ISS_interval;
 
 $(document).ready(function () {
+  // slide in all paragraphs
+  $(".main-wrapper p").each((index, p) => {
+    $(p)
+      .delay(100 * index)
+      .animate(
+        {
+          "margin-top": "0%",
+        },
+        1000
+      );
+  });
+  // animate lines
+  $(".lines").each((index, lines) =>
+    $(lines).delay(2500).animate({ width: "100%" })
+  );
   // Spinner
   $("#spinner").addClass("hide");
 
@@ -750,7 +765,7 @@ $(document).ready(function () {
 
     const ctx = container.getContext("2d");
     const myChart = new Chart(ctx, {
-      type: "bubble",
+      type: "bar",
       data: {
         labels: xlabels,
         datasets: [
@@ -804,7 +819,7 @@ $(document).ready(function () {
         // create canvas for data
         graphContainer();
         // create chart
-        createChart();
+        await createChart();
 
         // data
         const data = this.responseText;

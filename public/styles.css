@@ -29,6 +29,11 @@ body {
 p {
   text-shadow: var(--main-text-shadow);
   color: "#c7c7c7";
+  margin-top: 100%;
+}
+.lines{
+  width: 0%;
+  background: red;
 }
 a {
   color: rgb(197, 16, 4);
