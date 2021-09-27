@@ -32,7 +32,6 @@ const todoLink = "https://jsonplaceholder.typicode.com/todos";
 const usersLink = "https://jsonplaceholder.typicode.com/users";
 // quotes link
 const quotesLink = "https://type.fit/api/quotes";
-
 // movie images
 const img_500 = "https://image.tmdb.org/t/p/w500";
 const noPosterAvailable = `/public/img/noPoster.jpg`;
@@ -45,16 +44,37 @@ let ISS_interval;
 
 $(document).ready(function () {
   // slide in all paragraphs
-  $(".p_x").each((index, p) => {
-    $(p)
-      .delay(100 * index)
-      .animate(
-        {
-          "margin-top": "0%",
-        },
-        1000
-      );
-  });
+  const slideinDownText = function (elements) {
+    $(elements)
+      .each((index, element) => {
+        $(element)
+          .delay(100 * index)
+          .animate(
+            {
+              "margin-top": "0%",
+            },
+            1000
+          );
+      })
+      .unbind();
+  };
+  slideinDownText(".p_x");
+
+  // refresh page
+  (() => $("#refresh_btn").on("click", () => location.reload("html")))();
+
+  // search handler
+  const seachFilter = function (element) {
+    $(".search-input").on("keyup", function () {
+      let value = $(this).val().toLowerCase();
+      console.log("wokrds");
+
+      $(`#data-container ${element}`).filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+  };
+
   // animate lines
   $(".lines").each((index, lines) =>
     $(lines).delay(2500).animate({ width: "100%", opacity: 1 })
@@ -222,6 +242,8 @@ $(document).ready(function () {
                   rating
                 );
                 imageCreator(moviePoster);
+                // search  movie handler
+                seachFilter(".movie");
               });
               // Create Backdrop when movie is clicked handler
               (function () {
@@ -258,6 +280,71 @@ $(document).ready(function () {
       });
     });
   };
+
+  // ============AJAX CALL FOR POSTS HANDLER =================
+  const loadPostsDemoData = function (resourceLink) {
+    // offline handler
+    offline();
+    try {
+      //   remove placeholder container
+      $(".placeholder-container").css({ display: "none" });
+      // remove task data from the dom
+      $(".task").remove();
+      // remove post data from the dom
+      $(".photo").remove();
+      // remove user data from the dom
+      $(".user").remove();
+      // remove quote data from the dom
+      $(".quote").remove();
+      // remove users data from dom
+      $(".movie").remove();
+      // remove more movie button container
+      $(".more_movies_btn").remove();
+      // remove ISS container
+      $(".ISS-map-container").remove();
+      $(".ISS-data-wrapper").remove();
+      // remove global temperature component
+      $("#chart").remove();
+
+      // apply loading effetc class
+      $("#data-container").addClass("loadingAnimation");
+      // add spinner
+      $("#spinner").removeClass("hide");
+
+      xhttp.onreadystatechange = function (e) {
+        // Hide heading text
+        $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
+
+        if (this.readyState === 4 && this.status === 200) {
+          // remove spinner
+          $("#spinner").addClass("hide");
+
+          // remove loading effetc class
+          $("#data-container").removeClass("loadingAnimation");
+          const data = this.responseText;
+          const response = JSON.parse(data);
+
+          // posts data distructure=ing
+          response.forEach((obj) => {
+            const { body, id, title, userId } = obj;
+            postItem(userId, id, title, body);
+          });
+          // change heading text
+          $(".content-main-heading")
+            .text("all posts")
+            .css({ transform: "translate(-50%, -50%)" });
+
+          seachFilter(".post");
+        }
+      };
+
+      xhttp.open("GET", resourceLink, true);
+      xhttp.send();
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   // ============AJAX CALL FOR PHOTO HANDLER =================
   const loadUsersDemoData = function (resourceLink) {
     // offline handler
@@ -319,74 +406,14 @@ $(document).ready(function () {
         $(".content-main-heading")
           .text("all users")
           .css({ transform: "translate(-50%, -50%)" });
+
+        // search  tphoto handler
+        seachFilter(".photo");
       }
     };
     xhttp.open("GET", resourceLink, true);
     xhttp.send();
     return;
-  };
-
-  // ============AJAX CALL FOR POSTS HANDLER =================
-  const loadPostsDemoData = function (resourceLink) {
-    // offline handler
-
-    offline();
-    try {
-      //   remove placeholder container
-      $(".placeholder-container").css({ display: "none" });
-      // remove task data from the dom
-      $(".task").remove();
-      // remove post data from the dom
-      $(".photo").remove();
-      // remove user data from the dom
-      $(".user").remove();
-      // remove quote data from the dom
-      $(".quote").remove();
-      // remove users data from dom
-      $(".movie").remove();
-      // remove more movie button container
-      $(".more_movies_btn").remove();
-      // remove ISS container
-      $(".ISS-map-container").remove();
-      $(".ISS-data-wrapper").remove();
-      // remove global temperature component
-      $("#chart").remove();
-
-      // apply loading effetc class
-      $("#data-container").addClass("loadingAnimation");
-      // add spinner
-      $("#spinner").removeClass("hide");
-
-      xhttp.onreadystatechange = function (e) {
-        // Hide heading text
-        $(".content-main-heading").css({ transform: "translate(-50%, -500%)" });
-
-        if (this.readyState === 4 && this.status === 200) {
-          // remove spinner
-          $("#spinner").addClass("hide");
-
-          // remove loading effetc class
-          $("#data-container").removeClass("loadingAnimation");
-          const data = this.responseText;
-          const response = JSON.parse(data);
-
-          // posts data distructure=ing
-          response.forEach((obj) => {
-            const { body, id, title, userId } = obj;
-            postItem(userId, id, title, body);
-          });
-          // change heading text
-          $(".content-main-heading")
-            .text("all posts")
-            .css({ transform: "translate(-50%, -50%)" });
-        }
-      };
-
-      xhttp.open("GET", resourceLink, true);
-      xhttp.send();
-    } catch (e) {
-      console.log(e.message);
-    }
   };
 
   //============ AJAX CALL FOR TODOS HANDLER
@@ -439,6 +466,9 @@ $(document).ready(function () {
         $(".content-main-heading")
           .text("All tasks")
           .css({ transform: "translate(-50%, -50%)" });
+
+        // search  todos handler
+        seachFilter(".task");
       }
     };
     xhttp.open("GET", resourceLink, true);
@@ -496,6 +526,9 @@ $(document).ready(function () {
         $(".content-main-heading")
           .text("All quotes")
           .css({ transform: "translate(-50%, -50%)" });
+
+        // search  quotes handler
+        seachFilter(".quote");
       }
     };
     xhttp.open("GET", resourceLink, true);
@@ -590,6 +623,8 @@ $(document).ready(function () {
         $(".content-main-heading")
           .text("Trending movies")
           .css({ transform: "translate(-50%, -50%)" });
+        // search  movie handler
+        seachFilter(".movie");
 
         // Create Backdrop when movie is clicked handler
         (function () {
