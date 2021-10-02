@@ -27,15 +27,17 @@
     ></script>
     <!-- chart js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-    <!-- custom css -->
-    <link rel="stylesheet" href="/public/styles.css" />
-    <!-- Font Awesome CDN -->
+
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
       integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
       crossorigin="anonymous"
     />
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="/public/styles/styles.css" />
+    <!-- Font Awesome CDN -->
   </head>
   <body>
     <!-- === arrows ===-->
@@ -45,7 +47,7 @@
     </div>
     <!-- === end of arrows ===-->
     <!-- main container for data -->
-      <input class="search-input" type="text" placeholder="Search...">
+    <input class="search-input" type="text" placeholder="&#x02192;" />
 
     <section id="data-container" class="main-wrapper">
       <!-- spinner -->
@@ -78,12 +80,18 @@
 
           <li class="p_x">
             <a href="https://wheretheiss.at/" target="_blank"
-              ><q>International Space Station</q>current location.</a
+              >International Space Stationcurrent location.</a
             >
           </li>
           <li class="p_x">
             <a href="https://data.nasa.gov/" target="_blank"
-              ><q>NASA OPEN DATA PORTAL</q>global temperature.</a
+              >NASA OPEN DATA PORTAL-global temperature.</a
+            >
+          </li>
+
+          <li class="p_x">
+            <a href="https://openweathermap.org/current" target="_blank"
+              >Weather forecast from Open-weather api.</a
             >
           </li>
         </ul>
@@ -137,6 +145,10 @@
           most recent month: TXT, CSV Zonal annual means, 1880-present, updated
           through most recent complete year: TXT, CSV.
         </p>
+        <p class="p_x">
+          &#x025C9; I've used open-weather-api "community standard" for local
+          weather. All script runners are XMLHttp based.
+        </p>
 
         <p class="p_x">&#x025C9; Feel free to explore.</p>
         <p class="p_x">
@@ -157,12 +169,13 @@
       <button class="get-temperature BTN" title="global temperature">
         G-Temp &deg;
       </button>
+      <button class="get-selfie BTN" title="gelo location">Weather</button>
     </aside>
     <div class="herder">
       <h1 class="content-main-heading">visualize data</h1>
     </div>
     <button id="refresh_btn" class="refresh-btn">
-      <p class="bin-text">clear page</p> 
+      <p class="bin-text">reload page</p>
       <i id="trash-icon" class="fas fa-trash-alt"></i>
     </button>
     <!-- jQuery -->
@@ -171,6 +184,6 @@
       referrerpolicy="no-referrer"
     ></script>
     <!-- Custom JS -->
-    <script type="module" src="/public/js/index.js"></script>
+    <script type="module" src="/public/js/main.js"></script>
   </body>
 </html>

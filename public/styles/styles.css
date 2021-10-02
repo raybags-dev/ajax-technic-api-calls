@@ -11,6 +11,9 @@
   --main-font-family: "Roboto", sans-serif;
   --main-text-shadow: 0px 2px 1px black;
   --text-box-shadow: 5px 0px 0px 2px rgba(255, 255, 255, 0.5);
+  --deep-shadow-card: -20px 20px 20px 1px hsla(0, 0%, 0%, 0.5);
+  --deep-shadow_2: 10px 20px 20px 1px rgb(0, 0, 0, 0.5);
+  --deep-shadow_3: 1px 30px 30px 15px rgb(0, 0, 0, 0.5);
 }
 html,
 body {
@@ -26,11 +29,18 @@ body {
   color: #ffffff;
   overflow: hidden;
   background: linear-gradient(rgba(0, 0, 0, 0.9), rgb(0, 0, 0, 0.1)),
-    url("./img/baby-error.jpeg") center/cover no-repeat;
+    url("/public/img/baby-error.jpeg") center/cover no-repeat;
 }
-p {
+p,
+h1,
+span,
+h2,
+h3 {
   text-shadow: var(--main-text-shadow);
   color: "#c7c7c7";
+}
+i {
+  box-shadow: var(--deep-shadow-card);
 }
 .p_x {
   margin-top: 200%;
@@ -93,7 +103,12 @@ a:hover {
   gap: 1em;
   overflow-y: auto;
   transition: var(--transition);
+  scrollbar-width: thin;
 }
+.main-wrapper::-webkit-scrollbar:horizontal {
+  display: none;
+}
+
 @media screen and (max-width: 196px) {
   .main-wrapper {
     min-width: 200px;
@@ -116,7 +131,7 @@ a:hover {
   transition: 0.5s;
   font-size: 1em;
   padding-left: 0.5rem;
-  border-color: hsl(0, 100%, 50%, 0.4) transparent hsl(240, 100%, 50%, 0.4)
+  border-color: rgba(73, 72, 72, 0.4) transparent rgba(87, 87, 88, 0.8)
     transparent;
   box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.94);
   -webkit-animation: slideInSearchInput 1 forwards ease-in 3.5s 1s;
@@ -138,63 +153,87 @@ a:hover {
 .search-input::selection {
   background: red;
 }
+
 .search-input::-webkit-input-placeholder {
   color: hsl(0, 0%, 100%, 0.5);
   font-style: italic;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  font-size: 1.8em;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
 }
+
 .search-input::-moz-placeholder {
   color: hsl(0, 0%, 100%, 0.5);
   font-style: italic;
   -moz-transition: 0.3s;
   transition: 0.3s;
+  font-size: 1.8em;
+  -moz-transition: 0.8s;
+  transition: 0.8s;
 }
+
 .search-input:-ms-input-placeholder {
   color: hsl(0, 0%, 100%, 0.5);
   font-style: italic;
   -ms-transition: 0.3s;
   transition: 0.3s;
+  font-size: 1.8em;
+  -ms-transition: 0.8s;
+  transition: 0.8s;
 }
+
 .search-input::-ms-input-placeholder {
   color: hsl(0, 0%, 100%, 0.5);
   font-style: italic;
   -ms-transition: 0.3s;
   transition: 0.3s;
+  font-size: 1.8em;
+  -ms-transition: 0.8s;
+  transition: 0.8s;
 }
+
 .search-input::placeholder {
   color: hsl(0, 0%, 100%, 0.5);
   font-style: italic;
   transition: 0.3s;
+  font-size: 1.8em;
+  transition: 0.8s;
 }
+
 .search-input:focus::-webkit-input-placeholder {
   opacity: 0;
   letter-spacing: 3rem;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
 }
+
 .search-input:focus::-moz-placeholder {
   opacity: 0;
   letter-spacing: 3rem;
-  -moz-transition: 0.5s;
-  transition: 0.5s;
+  -moz-transition: 0.8s;
+  transition: 0.8s;
 }
+
 .search-input:focus:-ms-input-placeholder {
   opacity: 0;
   letter-spacing: 3rem;
-  -ms-transition: 0.5s;
-  transition: 0.5s;
+  -ms-transition: 0.8s;
+  transition: 0.8s;
 }
+
 .search-input:focus::-ms-input-placeholder {
   opacity: 0;
   letter-spacing: 3rem;
-  -ms-transition: 0.5s;
-  transition: 0.5s;
+  -ms-transition: 0.8s;
+  transition: 0.8s;
 }
+
 .search-input:focus::placeholder {
   opacity: 0;
   letter-spacing: 3rem;
-  transition: 0.5s;
+  transition: 0.8s;
 }
 .search-input:focus-within {
   text-align: center;
@@ -447,6 +486,13 @@ a:hover {
 .post p::-moz-selection,
 .task p::-moz-selection,
 .photo p::-moz-selection,
+.movie p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection,
 .movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
@@ -814,6 +860,7 @@ a:hover {
   opacity: 0;
   -webkit-animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
   animation: buttonSlideIn 1 ease-in-out forwards 1s 2s;
+  scrollbar-width: thin;
 }
 .button-wrapper::-webkit-scrollbar {
   background: rgb(37, 37, 37);
@@ -829,16 +876,17 @@ a:hover {
 }
 @media screen and (max-width: 998px) {
   .button-wrapper {
-    top: 0;
+    top: 0%;
     left: 0;
+    display: flex;
     flex-direction: row;
-    width: 85%;
-    height: 6%;
+    width: 100%;
+    height: 9%;
     padding: 1rem;
     border-radius: unset;
-    margin: 0.1rem 0.5rem;
     justify-content: center;
-    transform: translateX(7%);
+    align-items: center;
+    scrollbar-width: none;
   }
   .button-wrapper button {
     margin-left: 0.5rem;
@@ -1055,10 +1103,10 @@ a:hover {
   position: absolute;
   content: "";
   bottom: -40%;
-  left: 45%;
-  right: 45%;
+  left: 48%;
+  right: 48%;
   height: 10%;
-  background: red;
+  background: hsl(0, 100%, 50%, 0.5);
 }
 @-webkit-keyframes slideInText {
   to {
@@ -1745,4 +1793,245 @@ a:hover {
   height: 10%;
   background: green;
   z-index: 9000;
+}
+/* WEATHER COMPONENT STYLES */
+.weather-component {
+  position: relative;
+  width: 24%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 10px solid rgb(236, 236, 236, 0.05);
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 0.2rem;
+  -webkit-backdrop-filter: blur(100px);
+  backdrop-filter: blur(100px);
+  overflow: hidden;
+  min-width: 202.8px;
+  min-height: 60%;
+  cursor: cell;
+}
+.weather-component > div {
+  width: 100%;
+  background: linear-gradient(rgba(80, 79, 79, 0.1), hsla(231, 97%, 12%, 0.5));
+}
+.component-bg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  transition: var(--transition);
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  animation: zoominEffect infinite alternate-reverse linear 10s;
+}
+@-webkit-keyframes zoominEffect {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.25);
+  }
+}
+@keyframes zoominEffect {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.25);
+  }
+}
+.weather-component:hover .component-bg {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+.weather-component:hover .component-bg {
+  transform: scale(1.089);
+  transition: var(--transition);
+}
+
+.nav_weather {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 10%;
+  background: rgba(2, 50, 112, 0.2);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.nav_weather p {
+  max-width: 30%;
+  height: 100%;
+  text-align: center;
+  font-size: 0.9em;
+  font-weight: 700;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.1rem 0.1rem;
+  min-width: 76px;
+  overflow: hidden;
+}
+.middle-data-container {
+  position: absolute;
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-style: preserve-3d;
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+}
+.middle-data-container .inner-time-container {
+  margin-top: 3rem;
+  padding: 0.2rem;
+  border-radius: 0.4rem;
+  text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8;
+}
+
+.middle-data-container .city-heading {
+  text-transform: uppercase;
+  margin-top: 1rem;
+  color: rgb(255, 253, 253);
+}
+
+.deg-para {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  color: #ffffff;
+  text-shadow: 1px 3px 0 #969696, 1px 13px 5px #aba8a8;
+}
+
+.feels-para {
+  color: white;
+  font-size: 1.2em;
+  margin-top: 15%;
+  position: absolute;
+}
+.weather-status-para {
+  font-size: 1em;
+  position: absolute;
+  margin-top: 40%;
+}
+
+.icon-container {
+  position: absolute;
+  top: 70%;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.icon-container > div {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    rgba(248, 29, 0, 0.2),
+    rgba(252, 173, 2, 0.5)
+  );
+  transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  -webkit-animation: fadeInIcons forwards 1 ease-in 1s 2s;
+  animation: fadeInIcons forwards 1 ease-in 1s 2s;
+}
+.icon-container div:hover {
+  margin-bottom: 1rem;
+}
+
+@-webkit-keyframes fadeInIcons {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInIcons {
+  to {
+    opacity: 1;
+  }
+}
+.icon-container div:nth-child(1) {
+  margin-top: 2rem;
+}
+.icon-container div:nth-child(2) {
+  margin-bottom: 1rem;
+}
+.icon-container div:nth-child(3) {
+  margin-top: 2rem;
+}
+
+.icon-container > div p {
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  left: -10%;
+  display: flex;
+  transform: translate(10%, -40%);
+  flex-direction: row;
+  transition: 0.3s;
+  opacity: 0.7;
+}
+.icon-container div:hover p {
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.icon-container > div .fas {
+  font-size: 2rem;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  text-shadow: 1px 3px 0 #969696, 1px 19px 5px #aba8a8;
+}
+.icon-container > div:hover .fas {
+  transition: 0.3s;
+  text-shadow: 1px 3px 0 #969696, 1px 40px 5px #aba8a8;
+}
+
+@media screen and (max-width: 1670px) {
+  .weather-component {
+    width: 30%;
+    height: 50%;
+  }
+}
+@media screen and (max-width: 844px) {
+  .weather-component {
+    width: 32%;
+    height: 50%;
+  }
+}
+
+@media screen and (max-width: 679px) {
+  .weather-component {
+    width: 50%;
+    height: 50%;
+  }
+}
+@media screen and (max-width: 464px) {
+  .weather-component {
+    width: 100%;
+    height: 50%;
+    min-height: 80%;
+  }
 }

@@ -267,6 +267,100 @@ const graphContainer = function () {
   const container = $("<canvas></canvas>").attr({ id: "chart" });
   $(".main-wrapper").append($(container));
 };
+
+// Weather component
+const weather__component = function (
+  humidity,
+  country,
+  windspeed,
+  city,
+  degrees,
+  feelsLike,
+  weatherr_status,
+  weather_image
+) {
+  const time = new Date(),
+    day = time.toLocaleTimeString();
+
+  // weather status  paragraph
+  const weather_statuss = $("<span></span>")
+    .attr({ class: "weather-status-para" })
+    .text(`${weatherr_status}`);
+  // feels like  paragraph
+  const feels_like = $("<span></span>")
+    .attr({ class: "feels-para" })
+    .text(`${feelsLike}`);
+
+  // degrees paragraph
+  const degrees_para = $("<span></span>")
+    .attr({ class: "deg-para" })
+    .text(`${degrees}`);
+  // city headingh
+  const city_heading = $("<h1></h1>")
+    .attr({ class: "city-heading" })
+    .text(`${city}`);
+  // paragraph for inner dat-time container
+  const para_time_inner = $("<p></p>")
+    .attr({ class: "inner-time-container" })
+    .text(`${day}`);
+  // middle data container
+  const middle_data_container = $("<div></div>")
+    .attr({ class: "middle-data-container" })
+    .append($(para_time_inner), $(city_heading), $(degrees_para));
+  // windspeed para
+  const windSpeed_para = $("<p></p>")
+    .attr({ class: "wind-para" })
+    .text(`${windspeed}`);
+  // country para
+  const country_para = $("<p></p>")
+    .attr({ class: "country-para" })
+    .text(`${country}`);
+  // humidity
+  const dumidity_para = $("<p></p>")
+    .attr({ class: "humid-para" })
+    .text(`${humidity}`);
+  // navbar container
+  const navBar = $("<div></div>")
+    .attr({ class: "nav_weather" })
+    .append($(dumidity_para), $(country_para), $(windSpeed_para));
+  // bg image
+  const bg_img = $("<img/>").attr({
+    class: "component-bg",
+    src: weather_image,
+  });
+
+  // icon text
+  const p_1 = $("<p></p>").text("day 1");
+  const p_2 = $("<p></p>").text("day 2");
+  const p_3 = $("<p></p>").text("day 3");
+
+  // icons
+  const icon_1 = $("<i></i>").attr({ class: "fas fa-cloud-sun" });
+  const icon_2 = $("<i></i>").attr({ class: "fas fa-cloud-rain" });
+  const icon_3 = $("<i></i>").attr({ class: "fas fa-cloud" });
+
+  // icon divs
+  const icon_div_1 = $("<div></div>").append($(icon_1), $(p_1));
+  const icon_div_2 = $("<div></div>").append($(icon_2), $(p_2));
+  const icon_div_3 = $("<div></div>").append($(icon_3), $(p_3));
+
+  // icon container
+  const icon_container = $("<div></div>")
+    .attr({ class: "icon-container" })
+    .append($(icon_div_1), $(icon_div_2), $(icon_div_3));
+  // main single weather component
+  const component_container = $("<div></div>")
+    .attr({ class: "weather-component" })
+    .append(
+      $(bg_img),
+      $(navBar),
+      $(middle_data_container),
+      $(icon_container),
+      $(feels_like),
+      $(weather_statuss)
+    );
+  $(".main-wrapper").append($(component_container));
+};
 export {
   postItem,
   CreateQuote,
@@ -277,4 +371,5 @@ export {
   networkError,
   createISShtmlContainer,
   graphContainer,
+  weather__component,
 };

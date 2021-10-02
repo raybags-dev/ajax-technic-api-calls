@@ -2,6 +2,7 @@
 
 import { CreateBackdrop } from "./backdrop.js";
 import { createPagenationButtons } from "./PagenationButton.js";
+import { wether_maker } from "./helpers.js";
 import {
   postItem,
   CreateQuote,
@@ -23,6 +24,7 @@ const getQuotes = document.querySelector(".get-quotes");
 const getMovies = document.querySelector(".get-movies");
 const getISSposition = document.querySelector(".get-ISS-location");
 const getGlobalData = document.querySelector(".get-temperature");
+const geoLocation = document.querySelector(".get-selfie");
 
 // links
 const postsLink = "https://jsonplaceholder.typicode.com/posts";
@@ -39,6 +41,9 @@ const noPosterAvailable = `/public/img/noPoster.jpg`;
 const ISS_base_url = "https://api.wheretheiss.at/v1/satellites/25544";
 // Global ISS interval
 const temp_url = "/public/data/ZonAnn.Ts+dSST.csv";
+
+// open weather map api url
+// const open_weathermap_url = `http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=${THE_OPEN_WEATHERMAP_API_KEY}`;
 
 let ISS_interval;
 
@@ -234,13 +239,8 @@ $(document).ready(function () {
                 // title or original title
                 const movie_title = `${title || original_name}`;
                 // create movie and map data to element
-                createMovieItem(
-                  movie_title,
-                  moviePoster,
-                  overView,
-                  release_date,
-                  rating
-                );
+
+                movie_title, moviePoster, overView, release_date, rating;
                 imageCreator(moviePoster);
                 // search  movie handler
                 seachFilter(".movie");
@@ -298,13 +298,10 @@ $(document).ready(function () {
       $(".quote").remove();
       // remove users data from dom
       $(".movie").remove();
+      // remove weather components
+      $(".weather-component").remove();
       // remove more movie button container
       $(".more_movies_btn").remove();
-      // remove ISS container
-      $(".ISS-map-container").remove();
-      $(".ISS-data-wrapper").remove();
-      // remove global temperature component
-      $("#chart").remove();
 
       // apply loading effetc class
       $("#data-container").addClass("loadingAnimation");
@@ -368,6 +365,8 @@ $(document).ready(function () {
     $(".ISS-data-wrapper").remove();
     // remove global temperature component
     $("#chart").remove();
+    // remove weather components
+    $(".weather-component").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -440,6 +439,8 @@ $(document).ready(function () {
     $(".ISS-data-wrapper").remove();
     // remove global temperature component
     $("#chart").remove();
+    // remove weather components
+    $(".weather-component").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -498,6 +499,8 @@ $(document).ready(function () {
     $(".ISS-data-wrapper").remove();
     // remove global temperature component
     $("#chart").remove();
+    // remove weather components
+    $(".weather-component").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -560,6 +563,8 @@ $(document).ready(function () {
     $(".ISS-data-wrapper").remove();
     // remove global temperature component
     $("#chart").remove();
+    // remove weather components
+    $(".weather-component").remove();
 
     // apply loading effetc class
     $("#data-container").addClass("loadingAnimation");
@@ -689,6 +694,8 @@ $(document).ready(function () {
     $(".more_movies_btn").remove();
     // remove global temperature component
     $("#chart").remove();
+    // remove weather components
+    $(".weather-component").remove();
 
     // apply loading effect class
     $("#data-container").addClass("loadingAnimation");
@@ -881,6 +888,46 @@ $(document).ready(function () {
     return;
   };
 
+  //==== AJAX CALL FOR GLOBAL TEMPERATURE HANDLER =====//
+
+  const getGeoLocation = function () {
+    // offline handler
+    offline();
+    //   remove placeholder container
+    $(".placeholder-container").css({ display: "none" });
+    // empty content container
+    $("#data-container").empty();
+    // apply loading effetc class
+    $("#data-container").addClass("loadingAnimation");
+    // add spinner
+    $("#spinner").removeClass("hide");
+    // remove weather components
+    // $(".weather-component").remove();
+    // city
+    const cities = [
+      "amsterdam",
+      "chicago",
+      "paris",
+      "nairobi",
+      "mumbai",
+      "tokyo",
+      "delhi",
+      "shanghai",
+      "mexico",
+      "osaka",
+      "dhaka",
+      "cairo",
+      "karachi",
+      "istanbul",
+      "kolkata",
+      "kinshasa",
+      "lagos",
+      "manila",
+    ];
+
+    wether_maker();
+  };
+
   getPosts.addEventListener("click", () => loadPostsDemoData(postsLink));
   getTodos.addEventListener("click", () => loadTodosDemoData(todoLink));
   getUsers.addEventListener("click", () => loadUsersDemoData(usersLink));
@@ -888,4 +935,5 @@ $(document).ready(function () {
   getMovies.addEventListener("click", () => loadMovies());
   getISSposition.addEventListener("click", () => loadISSLocation(ISS_base_url));
   getGlobalData.addEventListener("click", () => globalTemp(temp_url));
+  geoLocation.addEventListener("click", () => getGeoLocation());
 });
