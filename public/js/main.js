@@ -890,7 +890,7 @@ $(document).ready(function () {
 
   //==== AJAX CALL FOR GLOBAL TEMPERATURE HANDLER =====//
 
-  const getGeoLocation = function () {
+  const getWeather = function () {
     // offline handler
     offline();
     //   remove placeholder container
@@ -902,29 +902,7 @@ $(document).ready(function () {
     // add spinner
     $("#spinner").removeClass("hide");
     // remove weather components
-    // $(".weather-component").remove();
-    // city
-    const cities = [
-      "amsterdam",
-      "chicago",
-      "paris",
-      "nairobi",
-      "mumbai",
-      "tokyo",
-      "delhi",
-      "shanghai",
-      "mexico",
-      "osaka",
-      "dhaka",
-      "cairo",
-      "karachi",
-      "istanbul",
-      "kolkata",
-      "kinshasa",
-      "lagos",
-      "manila",
-    ];
-
+    $(".weather-component").remove();
     wether_maker();
   };
 
@@ -935,5 +913,5 @@ $(document).ready(function () {
   getMovies.addEventListener("click", () => loadMovies());
   getISSposition.addEventListener("click", () => loadISSLocation(ISS_base_url));
   getGlobalData.addEventListener("click", () => globalTemp(temp_url));
-  geoLocation.addEventListener("click", () => getGeoLocation());
+  geoLocation.addEventListener("click", () => getWeather());
 });
