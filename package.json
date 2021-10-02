@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "dev": "nodemon main.js -w"
+    "dev": "nodemon main.js -w",
+    "prod": "node main.js"
   },
+  "node": "v16.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/raybags-web-dev/ajax-technic-api-calls.git"
