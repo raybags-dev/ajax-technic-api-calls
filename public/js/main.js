@@ -125,11 +125,11 @@ $(document).ready(function () {
       $(".BTN").each(function (ind, button) {
         setTimeout(() => {
           $(button).addClass("BTN_hover_effect");
-        }, ind * 200);
+        }, ind * 50);
 
         setTimeout(() => {
           $(button).removeClass("BTN_hover_effect");
-        }, ind * 280);
+        }, ind * 80);
       });
     };
     // animation variable

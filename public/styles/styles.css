@@ -12,7 +12,7 @@
   --main-text-shadow: 0px 2px 1px black;
   --text-box-shadow: 5px 0px 0px 2px rgba(255, 255, 255, 0.5);
   --deep-shadow-card: -20px 20px 20px 1px hsla(0, 0%, 0%, 0.5);
-  --deep-shadow_2: 10px 20px 20px 1px rgb(0, 0, 0, 0.5);
+  --deep-shadow_2: 1px 10px 20px 1px rgb(0, 0, 0, 0.5);
   --deep-shadow_3: 1px 30px 30px 15px rgb(0, 0, 0, 0.5);
 }
 html,
@@ -38,6 +38,13 @@ body {
   background-position: fixed;
   width: 100%;
   height: 100%;
+  transition: transform 0.5s linear;
+  animation: parallaxImageEffect infinite alternate-reverse 50s 1s;
+}
+@keyframes parallaxImageEffect {
+  to {
+    transform: scale(1.4);
+  }
 }
 p,
 h1,
@@ -141,7 +148,7 @@ a:hover {
   padding-left: 0.5rem;
   border-color: rgba(73, 72, 72, 0.4) transparent rgba(87, 87, 88, 0.8)
     transparent;
-  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.94);
+  box-shadow: var(--deep-shadow_2);
   -webkit-animation: slideInSearchInput 1 forwards ease-in 3.5s 1s;
   animation: slideInSearchInput 1 forwards ease-in 3.5s 1s;
 }
@@ -240,7 +247,7 @@ a:hover {
 
 .search-input:focus::placeholder {
   opacity: 0;
-  letter-spacing: 3rem;
+  margin-left: 50%;
   transition: 0.8s;
 }
 .search-input:focus-within {
@@ -249,6 +256,7 @@ a:hover {
   background: transparent;
   outline: none;
 }
+
 @media screen and (max-width: 998px) {
   .search-input {
     position: fixed;
@@ -352,11 +360,14 @@ a:hover {
   color: rgb(151, 149, 149);
   opacity: 0.8;
   font-weight: 700;
+  transition: 0.2s;
 }
 
 .list-container li:hover a {
   color: rgba(230, 9, 9, 0.8);
   flex-wrap: wrap;
+  margin-left: 0.4rem;
+  transition: 0.2s;
 }
 
 .post,
@@ -865,7 +876,7 @@ a:hover {
   top: 10.5%;
   left: 2%;
   width: 12%;
-  height: 40%;
+  height: 50%;
   display: flex;
   border-radius: 0.5rem;
   flex-direction: column;
@@ -897,9 +908,7 @@ a:hover {
     flex-direction: row;
     width: 100%;
     height: 9%;
-    padding: 1rem;
     border-radius: unset;
-    justify-content: center;
     align-items: center;
     scrollbar-width: none;
   }
@@ -922,13 +931,15 @@ a:hover {
   min-height: 3em;
   border-radius: 5rem;
   margin: 1em auto;
-  background: hsl(0, 1%, 25%);
+  background: hsl(0, 1%, 25%, 0.2);
   border-color: rgba(3, 162, 253, 0.8) transparent hsl(0, 100%, 50%, 0.1)
     transparent;
   color: white;
   opacity: 0.7;
   text-transform: uppercase;
+  box-shadow: var(--deep-shadow_2);
 }
+
 /* refresh buttin style */
 .refresh-btn {
   position: absolute;
@@ -1032,11 +1043,11 @@ a:hover {
   filter: blur(10px);
   transition: var(--transition);
   transform: perspective(2rem) rotateX(70deg);
-  background: rgba(112, 2, 2, 0.6);
+  background: rgba(115, 145, 184, 0.6);
 }
 .button-wrapper button:hover::before {
   opacity: 1;
-  bottom: -60%;
+  bottom: -55%;
 }
 
 @-webkit-keyframes buttonSlideIn {
