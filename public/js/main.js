@@ -203,6 +203,7 @@ $(document).ready(function () {
               // remove ISS container
               $(".ISS-map-container").remove();
               $(".ISS-data-wrapper").remove();
+              $("#data-container").empty();
 
               // remove global temperature component
               $("#chart").remove();
@@ -240,7 +241,15 @@ $(document).ready(function () {
                 const movie_title = `${title || original_name}`;
                 // create movie and map data to element
 
-                movie_title, moviePoster, overView, release_date, rating;
+                // create movie
+                createMovieItem(
+                  movie_title,
+                  moviePoster,
+                  overView,
+                  release_date,
+                  rating
+                );
+
                 imageCreator(moviePoster);
                 // search  movie handler
                 seachFilter(".movie");
