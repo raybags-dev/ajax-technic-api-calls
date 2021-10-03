@@ -28,8 +28,16 @@ body {
   background: #000000;
   color: #ffffff;
   overflow: hidden;
-  background: linear-gradient(rgba(0, 0, 0, 0.9), rgb(0, 0, 0, 0.1)),
-    url("/public/img/baby-error.jpeg") center/cover no-repeat;
+}
+.background_image {
+  -o-object-fit: cover;
+  object-fit: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: fixed;
+  width: 100%;
+  height: 100%;
 }
 p,
 h1,
@@ -486,6 +494,13 @@ a:hover {
 .post p::-moz-selection,
 .task p::-moz-selection,
 .photo p::-moz-selection,
+.movie p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection,
 .movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }

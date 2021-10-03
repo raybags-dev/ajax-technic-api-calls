@@ -16,31 +16,31 @@ import {
 } from "./templates.js";
 import { TMDT_API_KEY } from "./apikey.js";
 
-const xhttp = new XMLHttpRequest();
-const getPosts = document.querySelector(".get-posts");
-const getTodos = document.querySelector(".get-todos");
-const getUsers = document.querySelector(".get-images");
-const getQuotes = document.querySelector(".get-quotes");
-const getMovies = document.querySelector(".get-movies");
-const getISSposition = document.querySelector(".get-ISS-location");
-const getGlobalData = document.querySelector(".get-temperature");
-const geoLocation = document.querySelector(".get-selfie");
+const xhttp = new XMLHttpRequest(),
+  getPosts = document.querySelector(".get-posts"),
+  getTodos = document.querySelector(".get-todos"),
+  getUsers = document.querySelector(".get-images"),
+  getQuotes = document.querySelector(".get-quotes"),
+  getMovies = document.querySelector(".get-movies"),
+  getISSposition = document.querySelector(".get-ISS-location"),
+  getGlobalData = document.querySelector(".get-temperature"),
+  geoLocation = document.querySelector(".get-selfie");
 
 // links
-const postsLink = "https://jsonplaceholder.typicode.com/posts";
-// tasks link
-const todoLink = "https://jsonplaceholder.typicode.com/todos";
-// users link
-const usersLink = "https://jsonplaceholder.typicode.com/users";
-// quotes link
-const quotesLink = "https://type.fit/api/quotes";
-// movie images
-const img_500 = "https://image.tmdb.org/t/p/w500";
-const noPosterAvailable = `/public/img/noPoster.jpg`;
-// ISS base url
-const ISS_base_url = "https://api.wheretheiss.at/v1/satellites/25544";
-// Global ISS interval
-const temp_url = "/public/data/ZonAnn.Ts+dSST.csv";
+const postsLink = "https://jsonplaceholder.typicode.com/posts",
+  // tasks link
+  todoLink = "https://jsonplaceholder.typicode.com/todos",
+  // users link
+  usersLink = "https://jsonplaceholder.typicode.com/users",
+  // quotes link
+  quotesLink = "https://type.fit/api/quotes",
+  // movie images
+  img_500 = "https://image.tmdb.org/t/p/w500",
+  noPosterAvailable = `/public/img/noPoster.jpg`,
+  // ISS base url
+  ISS_base_url = "https://api.wheretheiss.at/v1/satellites/25544",
+  // Global ISS interval
+  temp_url = "/public/data/ZonAnn.Ts+dSST.csv";
 
 // open weather map api url
 // const open_weathermap_url = `http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=${THE_OPEN_WEATHERMAP_API_KEY}`;
@@ -635,11 +635,11 @@ $(document).ready(function () {
         (function () {
           $(".movie").each((index, movieItem) => {
             $(movieItem).on("click", (e) => {
-              const bd_title = $(movieItem).children()[0].innerText;
-              const bd_image_url = $(movieItem).children()[1].src;
-              const bd_details = $(movieItem).children()[2].innerText;
-              const bd_release_date = $(movieItem).children()[3].innerText;
-              const bd_rating = $(movieItem).children()[4].innerText;
+              const bd_title = $(movieItem).children()[0].innerText,
+                bd_image_url = $(movieItem).children()[1].src,
+                bd_details = $(movieItem).children()[2].innerText,
+                bd_release_date = $(movieItem).children()[3].innerText,
+                bd_rating = $(movieItem).children()[4].innerText;
 
               CreateBackdrop(
                 `${bd_image_url}`,

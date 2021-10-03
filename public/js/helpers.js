@@ -2,11 +2,11 @@ import { weather__component } from "./templates.js";
 import { THE_OPEN_WEATHERMAP_API_KEY } from "./apikey.js";
 
 const xhttp = new XMLHttpRequest();
-const timeStamp = new Date().toLocaleTimeString();
 
 // weather London.
 const wether_maker = function () {
   // city runner interval
+
   let cityRunnerInterval;
   const cities = [
     "amsterdam",
@@ -74,18 +74,18 @@ const wether_maker = function () {
           timezone,
         } = data;
 
-        const windSpeed = `windspeed: ${speed || "--"}`;
-        const humid = `humidity: ${humidity || "--"}`;
+        const windSpeed = `windspeed: ${speed || "--"}`,
+          humid = `humidity: ${humidity || "--"}`;
 
-        const { degrees_celiciuus } = toCeliciousDegrees(deg);
-        const degrees = `${degrees_celiciuus || "--"} °C `;
+        const { degrees_celiciuus } = toCeliciousDegrees(deg),
+          degrees = `${degrees_celiciuus || "--"} °C `;
 
-        const { degrees_celiciuus: feels } = toCeliciousDegrees(feels_like);
-        const itFeelsLike = `It feels like ${feels || "--"} °C `;
+        const { degrees_celiciuus: feels } = toCeliciousDegrees(feels_like),
+          itFeelsLike = `It feels like ${feels || "--"} °C `;
 
-        const target_city = `${city || "--"}`;
-        const weather_description = `Today it's ${description}`;
-        const weatherStatus = `${weather_status || "--"} today`;
+        const target_city = `${city || "--"}`,
+          weather_description = `Today it's ${description}`,
+          weatherStatus = `${weather_status || "--"} today`;
 
         let weather_image_link = "";
         //     "/public/img/rainy_sunny-min.jpeg"
