@@ -41,6 +41,11 @@ body {
   transition: transform 0.5s linear;
   animation: parallaxImageEffect infinite alternate-reverse 50s 1s;
 }
+@-webkit-keyframes parallaxImageEffect {
+  to {
+    transform: scale(1.4);
+  }
+}
 @keyframes parallaxImageEffect {
   to {
     transform: scale(1.4);
@@ -505,6 +510,13 @@ a:hover {
 .post p::-moz-selection,
 .task p::-moz-selection,
 .photo p::-moz-selection,
+.movie p::-moz-selection {
+  background: rgba(23, 59, 34, 0.5);
+}
+.post p::-moz-selection,
+.task p::-moz-selection,
+.photo p::-moz-selection,
+.quote p::-moz-selection,
 .movie p::-moz-selection {
   background: rgba(23, 59, 34, 0.5);
 }
