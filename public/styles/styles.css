@@ -1005,9 +1005,6 @@ a:hover {
 }
 
 @media screen and (max-width: 569px) {
-  .button-wrapper {
-    top: 1%;
-  }
   .button-wrapper button {
     border-radius: 0.5rem;
     margin-left: 0.5rem;
