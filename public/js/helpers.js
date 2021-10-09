@@ -150,4 +150,29 @@ const wether_maker = function () {
   $("#data-container").removeClass("loadingAnimation");
   clearInterval(cityRunnerInterval);
 };
-export { wether_maker };
+
+const setMovieRating = function (thisMovieRating) {
+  $(thisMovieRating).each(function (index, thisMoivie) {
+    let movieAverage = parseInt($(thisMoivie).text());
+
+    if (
+      movieAverage === undefined ||
+      movieAverage === "" ||
+      movieAverage === null
+    )
+      $(thisMoivie).addClass("no-rating");
+    if (movieAverage <= 4.0)
+      $(thisMoivie).removeClass("no-rating").addClass("low-rating");
+    if (movieAverage > 4.1 && movieAverage <= 6.9)
+      $(thisMoivie).removeClass("no-rating").addClass("average-rating");
+    if (movieAverage >= 7.0)
+      $(thisMoivie).removeClass("no-rating").addClass("top-rating");
+  });
+};
+
+const scrollToTopOfThePage = function () {
+  let target = $("body");
+  $("#data-container").animate({ scrollTop: $(target).offset().top });
+};
+
+export { wether_maker, setMovieRating, scrollToTopOfThePage };

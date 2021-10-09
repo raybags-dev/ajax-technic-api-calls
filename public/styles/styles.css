@@ -146,8 +146,6 @@ a:hover {
   transition: 0.5s;
   opacity: 1;
   color: white;
-  justify-content: center;
-  align-items: center;
   transition: 0.5s;
   font-size: 1em;
   padding-left: 0.5rem;
@@ -252,12 +250,12 @@ a:hover {
 
 .search-input:focus::placeholder {
   opacity: 0;
-  margin-left: 50%;
+  margin-right: 50%;
   transition: 0.8s;
 }
 .search-input:focus-within {
-  text-align: center;
-  border-color: red transparent blue transparent;
+  border-color: rgba(145, 143, 143, 0.4) transparent hsl(240, 100%, 50%, 0.4)
+    transparent;
   background: transparent;
   outline: none;
 }
@@ -393,7 +391,7 @@ a:hover {
   font-size: 1em;
   overflow-y: auto;
   transition: var(--transition);
-  background: rgb(14, 13, 13);
+  background: rgb(14, 13, 13, 0.5);
   min-width: 135.36px;
   opacity: 0.6;
   transition: var(--transition);
@@ -721,7 +719,17 @@ a:hover {
   width: 100%;
   height: 100%;
   transition: var(--transition);
-  opacity: 0.6;
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+.movie-title {
+  z-index: 1;
+  max-width: 90%;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  opacity: 0.8;
+  color: rgb(235, 5, 5, 0.9) !important;
 }
 .movie > * {
   overflow: auto;
@@ -796,17 +804,17 @@ a:hover {
   bottom: 0;
 }
 
-.primary {
-  background: rgb(1, 121, 1, 1);
+.low-rating {
+  background: rgba(138, 21, 1, 0.8);
+  color: white;
+}
+.average-rating {
+  background: rgb(47, 88, 104, 0.8);
+  color: white;
+}
+.top-rating {
+  background: rgb(1, 121, 1, 0.8);
   color: rgb(255, 255, 255);
-}
-.danger {
-  background: rgba(138, 21, 1, 1);
-  color: white;
-}
-.average {
-  background: rgb(0, 49, 122);
-  color: white;
 }
 .no-rating {
   background: rgb(71, 71, 71);

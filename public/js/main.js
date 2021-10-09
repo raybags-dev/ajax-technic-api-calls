@@ -2,7 +2,11 @@
 
 import { CreateBackdrop } from "./backdrop.js";
 import { createPagenationButtons } from "./PagenationButton.js";
-import { wether_maker } from "./helpers.js";
+import {
+  wether_maker,
+  setMovieRating,
+  scrollToTopOfThePage,
+} from "./helpers.js";
 import {
   postItem,
   CreateQuote,
@@ -174,12 +178,9 @@ $(document).ready(function () {
     $(".more_movies_btn a").each(async (ind, movielink) => {
       $(movielink).on("click", function (e) {
         e.preventDefault();
-        // scroll handler
-        // Handle content container inner scroll
-        (function () {
-          let target = $("body");
-          $("#data-container").animate({ scrollTop: $(target).offset().top });
-        })();
+
+        // scroll bottom handler
+        scrollToTopOfThePage();
 
         const moviewLink = `https://api.themoviedb.org/3/trending/all/day?api_key=1fd9e2240dd7b999db65cb61d9ca50cf&page=${$(
           movielink
@@ -249,7 +250,9 @@ $(document).ready(function () {
                   release_date,
                   rating
                 );
-
+                // set movie rating styles
+                setMovieRating($(".movie-vote"));
+                // create image handler
                 imageCreator(moviePoster);
                 // search  movie handler
                 seachFilter(".movie");
@@ -631,6 +634,9 @@ $(document).ready(function () {
             releaseDate,
             rating
           );
+          // set movie rreview score handler.
+          setMovieRating($(".movie-vote"));
+
           imageCreator(moviePoster);
         });
         // change heading text
@@ -660,13 +666,6 @@ $(document).ready(function () {
               // remove backdrop
               removeBackdropContainer();
             });
-          });
-        })();
-
-        // go to bottom
-        (() => {
-          $("#data-container").animate({
-            scrollTop: $(".main-wrapper .movie:last-child").position().top,
           });
         })();
       }
